@@ -23,13 +23,15 @@ struct CardFromURL: View {
 
     var body: some View {
         ZStack(alignment: .topTrailing){
+            //Image
             KFImage(cardFromURLViewModel.imageURL)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 200, height: 300)
                 .clipped()
                 .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
-                
+            
+            //Buttons
             VStack(alignment: .trailing) {
                 //Plus button
                 Button(action: {
@@ -62,7 +64,7 @@ struct CardFromURL: View {
     
     func showMenu() {
         withAnimation {
-            showMenuItem3.toggle()
+            self.showMenuItem3.toggle()
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             withAnimation {

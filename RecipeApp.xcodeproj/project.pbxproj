@@ -18,12 +18,12 @@
 		6676D0542425B7B600E13D55 /* RecipeBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676D0532425B7B600E13D55 /* RecipeBookView.swift */; };
 		6676D0562425B7ED00E13D55 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676D0552425B7ED00E13D55 /* Recipe.swift */; };
 		6676D0582425B7FB00E13D55 /* RecipesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676D0572425B7FB00E13D55 /* RecipesViewModel.swift */; };
-		66EEA75B2425BDA100602889 /* Pods_RecipeApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00AE4B30379D6952CC5D3A4 /* Pods_RecipeApp.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		66EEA7632426C21500602889 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EEA7622426C21500602889 /* ProfileView.swift */; };
 		66EEA7652426C22E00602889 /* IngredientListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EEA7642426C22E00602889 /* IngredientListView.swift */; };
 		66EEA76A2426E98400602889 /* CardFromURLViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EEA7692426E98400602889 /* CardFromURLViewModel.swift */; };
 		66EEA76C242701CA00602889 /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EEA76B242701CA00602889 /* RecipeView.swift */; };
 		66F535452427CA6700EC09DD /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F535442427CA6700EC09DD /* TestView.swift */; };
+		66F535462427F44F00EC09DD /* Pods_RecipeApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00AE4B30379D6952CC5D3A4 /* Pods_RecipeApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,7 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66EEA75B2425BDA100602889 /* Pods_RecipeApp.framework in Frameworks */,
+				66F535462427F44F00EC09DD /* Pods_RecipeApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
