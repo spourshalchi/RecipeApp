@@ -16,6 +16,8 @@ struct CardFromURL: View {
     @State var showMenuItem2 = false
     @State var showMenuItem3 = false
     @ObservedObject var cardFromURLViewModel = CardFromURLViewModel()
+    @State var modalDisplayed = false
+    let recipe = Recipe(uid: 0, recipeURLString:"https://www.bonappetit.com/recipe/sour-cream-and-onion-biscuits" , imageURLString:"https://assets.bonappetit.com/photos/5e6ac0e70847910008100987/3:2/w_5120,c_limit/BBaking_WEEK6_Biscuts_2.jpg",title:"Sour Cream and Onion Biscuits", imageURL:URL(string: "https://assets.bonappetit.com/photos/5e6ac0e70847910008100987/3:2/w_5120,c_limit/BBaking_WEEK6_Biscuts_2.jpg")!)
     
     init(recipeURLString: String){
         self.cardFromURLViewModel.getImageURL(recipeURLString: recipeURLString)
@@ -30,6 +32,12 @@ struct CardFromURL: View {
                 .frame(width: 200, height: 300)
                 .clipped()
                 .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
+                .animation(Animation.spring())
+                .onTapGesture {
+                    self.modalDisplayed = true
+                }.sheet(isPresented: $modalDisplayed) {
+                    RecipeView(recipe:self.recipe, onDismiss: {self.modalDisplayed = false})
+                }
             
             //Buttons
             VStack(alignment: .trailing) {
