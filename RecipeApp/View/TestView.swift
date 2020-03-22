@@ -12,6 +12,7 @@ import struct Kingfisher.KFImage
 struct TestView: View {
     let link = "https://assets.bonappetit.com/photos/5e6ac0e70847910008100987/3:2/w_5120,c_limit/BBaking_WEEK6_Biscuts_2.jpg"
     @State var modalDisplayed = false
+    let recipe = Recipe(uid: 0, recipeURLString:"https://www.bonappetit.com/recipe/sour-cream-and-onion-biscuits" , imageURLString:"https://assets.bonappetit.com/photos/5e6ac0e70847910008100987/3:2/w_5120,c_limit/BBaking_WEEK6_Biscuts_2.jpg",title:"Sour Cream and Onion Biscuits", imageURL:URL(string: "https://assets.bonappetit.com/photos/5e6ac0e70847910008100987/3:2/w_5120,c_limit/BBaking_WEEK6_Biscuts_2.jpg")!)
 
     var body: some View {
         VStack{
@@ -25,10 +26,8 @@ struct TestView: View {
                 .onTapGesture {
                     self.modalDisplayed = true
                 }.sheet(isPresented: $modalDisplayed) {
-                DetailView(onDismiss: {
-                    self.modalDisplayed = false
-                })
-            }
+                    RecipeView(recipe:self.recipe, onDismiss: {self.modalDisplayed = false})
+                }
         }
     }
 }
@@ -44,8 +43,6 @@ struct DetailView: View {
     var onDismiss: () -> ()
     
     var body: some View {
-        Button(action: { self.onDismiss() }) {
-            Text("Dismiss")
-        }
+        Text("Woot")
     }
 }

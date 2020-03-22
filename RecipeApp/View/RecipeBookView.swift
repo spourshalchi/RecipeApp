@@ -22,7 +22,7 @@ struct RecipeBookView: View {
             NavigationView {
                 VStack {
                     List(recipesViewModel.recipes) { recipe in
-                        NavigationLink(destination: RecipeView(recipe:recipe)) {
+                        NavigationLink(destination: RecipeView(recipe:recipe, onDismiss:{})) {
                             HStack(){
                                 //Image
                                 KFImage(recipe.imageURL)
