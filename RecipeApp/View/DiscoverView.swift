@@ -16,42 +16,42 @@ struct DiscoverView: View {
         "https://www.bonappetit.com/recipe/ramen-noodles-with-spring-onions"]
     
     var body: some View {
-        VStack {
-            //For you/following Buttons
-            HStack(){
-                //For you button
-                Button(action: {
-                    self.following = false
-                }) {
-                    HStack {
-                        Text("For you")
-                            .fontWeight(.semibold)
-                            .font(.body)
+        ScrollView {
+            VStack {
+                //For you/following Buttons
+                HStack(){
+                    //For you button
+                    Button(action: {
+                        self.following = false
+                    }) {
+                        HStack {
+                            Text("For you")
+                                .fontWeight(.semibold)
+                                .font(.body)
+                        }
+                        .padding()
+                        .foregroundColor(following ? .black : .white)
+                        .background(following ? Color.white : Color.black)
+                        .cornerRadius(40)
                     }
-                    .padding()
-                    .foregroundColor(following ? .black : .white)
-                    .background(following ? Color.white : Color.black)
-                    .cornerRadius(40)
+                    
+                    //Following button
+                    Button(action: {
+                        self.following = true
+                    }) {
+                        HStack {
+                            Text("Following")
+                                .fontWeight(.semibold)
+                                .font(.body)
+                        }
+                        .padding()
+                        .foregroundColor(following ? .white : .black)
+                        .background(following ? Color.black : Color.white)
+                        .cornerRadius(40)
+                    }
                 }
                 
-                //Following button
-                Button(action: {
-                    self.following = true
-                }) {
-                    HStack {
-                        Text("Following")
-                            .fontWeight(.semibold)
-                            .font(.body)
-                    }
-                    .padding()
-                    .foregroundColor(following ? .white : .black)
-                    .background(following ? Color.black : Color.white)
-                    .cornerRadius(40)
-                }
-            }
-            
-            //Cards
-            ScrollView{
+                //Cards
                 HStack(){
                     VStack(){
                         ForEach(0 ..< links.count/2) {
@@ -65,9 +65,6 @@ struct DiscoverView: View {
                     }
                 }
             }
-            .offset(y: -15)
-            .padding()
-            .edgesIgnoringSafeArea(.bottom)
         }
     }
 }
