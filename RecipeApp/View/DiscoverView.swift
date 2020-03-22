@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct DiscoverView: View {
-    @EnvironmentObject var viewRouter: ViewRouter
     @State private var following = false
     
     let links: [String] = ["https://www.bonappetit.com/recipe/green-garlic-roast-chicken", "https://www.bonappetit.com/recipe/fusilli-with-battuto-di-erbe", "https://www.bonappetit.com/recipe/charred-leeks-with-honey-and-vinegar", "https://www.bonappetit.com/recipe/rigatoni-with-fennel-and-anchovies",

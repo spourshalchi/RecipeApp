@@ -10,27 +10,24 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @EnvironmentObject var viewRouter: ViewRouter
-
-    func containedView() -> AnyView {
-        switch viewRouter.currentPage {
-        case "Discover": return AnyView(DiscoverView())
-        case "RecipeBook": return AnyView(RecipeBookView())
-        case "IngredientList": return AnyView(IngredientListView())
-        case "Profile": return AnyView(ProfileView())
-        default:
-            return AnyView(DiscoverView())
-        }
-    }
-    
     var body: some View {
-        ZStack {
-            containedView()
-            VStack(){
-                Spacer()
-                BottomBar()
-            }
-        }
+        TabView{
+            DiscoverView().tabItem({
+                Image(systemName:"flame")
+            }).tag(0)
+            
+            RecipeBookView().tabItem({
+                Image(systemName:"book")
+            }).tag(1)
+            
+            IngredientListView().tabItem({
+                Image(systemName:"list.bullet")
+            }).tag(1)
+            
+            ProfileView().tabItem({
+                Image(systemName:"person.crop.circle.fill")
+            }).tag(1)
+        }.accentColor(Color.red)
     }
 }
 
