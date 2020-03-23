@@ -14,9 +14,10 @@ struct RecipeView: View {
     var onDismiss: () -> ()
     
     var body: some View {
+        
         GeometryReader { geometry in
-            ScrollView{
-                VStack{
+            VStack{
+                ScrollView{
                     //Image
                     KFImage(self.recipe.imageURL)
                         .resizable()
@@ -53,7 +54,9 @@ struct RecipeView: View {
                                 .frame(width: geometry.size.width)
                         }
                     }.padding()
-                }.edgesIgnoringSafeArea(.bottom)
+                }
+                .edgesIgnoringSafeArea(.bottom)
+                .offset(y:30)
             }
         }
     }
