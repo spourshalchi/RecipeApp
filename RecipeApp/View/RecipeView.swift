@@ -14,21 +14,53 @@ struct RecipeView: View {
     var onDismiss: () -> ()
     
     var body: some View {
-        VStack{
-            Text(recipe.title)
-                .font(.headline)
-                .padding()
-            KFImage(recipe.imageURL)
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(height: 300)
-            Spacer()
+        GeometryReader { geometry in
+            ScrollView{
+                VStack{
+                    //Image
+                    KFImage(self.recipe.imageURL)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(height: 300)
+                    
+                    //Title
+                    Text(self.recipe.title)
+                        .font(.title)
+                        .multilineTextAlignment(.center)
+                        .frame(width: geometry.size.width)
+                        .padding()
+                    
+                    //Ingredients
+                    VStack(spacing:20){
+                        Text("Ingredients")
+                            .font(.headline)
+                        ForEach(self.recipe.ingredients, id: \.self) { ingredient in
+                            Text(ingredient)
+                                .font(.body)
+                                .multilineTextAlignment(.center)
+                                .frame(width: geometry.size.width)
+                        }
+                    }.padding()
+                    
+                    //Steps
+                    VStack(alignment:.leading, spacing:20){
+                        Text("Steps")
+                            .font(.headline)
+                        ForEach(self.recipe.steps, id: \.self) { step in
+                            Text(step)
+                                .font(.body)
+                                .multilineTextAlignment(.leading)
+                                .frame(width: geometry.size.width)
+                        }
+                    }.padding()
+                }.edgesIgnoringSafeArea(.bottom)
+            }
         }
     }
 }
 
 struct RecipeView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeView(recipe: Recipe(uid: 0, recipeURLString:"https://www.bonappetit.com/recipe/charred-leeks-with-honey-and-vinegar" , imageURLString:"https://assets.bonappetit.com/photos/5e6ac0e70847910008100987/3:2/w_5120,c_limit/BBaking_WEEK6_Biscuts_2.jpg",title:"Charred Leeks With Honey and Vinegar", imageURL:URL(string:"https://assets.bonappetit.com/photos/5e5e818d58c694000852fc48/16:9/w_5120,c_limit/Alliums-Charred-Leeks-Honey-and-Vinegar.jpg")!), onDismiss:{})
+        RecipeView(recipe: Recipe(uid: 0, recipeURLString:"https://www.bonappetit.com/recipe/charred-leeks-with-honey-and-vinegar" , imageURLString:"https://assets.bonappetit.com/photos/5e6ac0e70847910008100987/3:2/w_5120,c_limit/BBaking_WEEK6_Biscuts_2.jpg",title:"Ramen Noodles With Spring Onions and Garlic Crisp", imageURL:URL(string:"https://assets.bonappetit.com/photos/5e5e818d58c694000852fc48/16:9/w_5120,c_limit/Alliums-Charred-Leeks-Honey-and-Vinegar.jpg")!,ingredients:["ingredint"],steps:["step"]), onDismiss:{})
     }
 }

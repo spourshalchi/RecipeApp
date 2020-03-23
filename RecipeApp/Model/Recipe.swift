@@ -10,9 +10,11 @@ import SwiftUI
 
 struct Recipe: Decodable, Identifiable {
     let id = UUID()
-    let uid: Int
-    let recipeURLString: String
-    let imageURLString: String
-    let title: String
-    let imageURL: URL
+    var uid: Int
+    var recipeURLString: String
+    var imageURLString: String
+    var title: String
+    var imageURL: URL!
+    var ingredients:[String]
+    var steps:[String]
 }

@@ -10,18 +10,18 @@ import SwiftUI
 import struct Kingfisher.KFImage
 
 struct RecipeBookView: View {
-    @ObservedObject var recipesViewModel = RecipesViewModel()
+    @ObservedObject var recipeBookViewModel = RecipeBookViewModel()
     
     init() {
         UITableView.appearance().separatorColor = .clear
         UITableView.appearance().separatorStyle = .none
-        self.recipesViewModel.fetchRecipes()
+        self.recipeBookViewModel.fetchRecipes()
       }
     
     var body: some View {
             NavigationView {
                 VStack {
-                    List(recipesViewModel.recipes) { recipe in
+                    List(recipeBookViewModel.recipes) { recipe in
                         NavigationLink(destination: RecipeView(recipe:recipe, onDismiss:{})) {
                             HStack(){
                                 //Image
