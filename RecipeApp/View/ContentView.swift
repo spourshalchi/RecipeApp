@@ -20,7 +20,7 @@ struct ContentView: View {
                 Image(systemName:"book")
             }).tag(1)
             
-            IngredientListView().tabItem({
+            ShoppingListView().tabItem({
                 Image(systemName:"list.bullet")
             }).tag(1)
             

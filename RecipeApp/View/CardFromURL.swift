@@ -70,7 +70,9 @@ struct CardFromURL: View {
                 }
             }
             .offset(x: -10, y: 10)
-        }.fixedSize()
+        }
+        .padding(.vertical,10)
+        .shadow(radius: 10)
     }
     
     func showMenu() {
