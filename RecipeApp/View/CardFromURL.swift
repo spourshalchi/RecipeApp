@@ -29,16 +29,16 @@ struct CardFromURL: View {
     var body: some View {
         ZStack(alignment: .topTrailing){
             //Image
-            KFImage(recipeViewModel.recipe.imageURL)
+            KFImage(self.recipeViewModel.recipe.imageURL)
                 .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 200, height: 300)
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 400)
                 .clipped()
                 .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
                 .animation(Animation.spring())
                 .onTapGesture {
                     self.modalDisplayed = true
-                }.sheet(isPresented: $modalDisplayed) {
+                }.sheet(isPresented: self.$modalDisplayed) {
                     RecipeView(recipe:self.recipeViewModel.recipe, onDismiss: {self.modalDisplayed = false})
                 }
             
@@ -54,23 +54,23 @@ struct CardFromURL: View {
                         .background(Color.white)
                         .clipShape(Circle())
                         .shadow(radius: 2)
-                        .rotationEffect(.degrees(rotated ? 90 : 0))
+                        .rotationEffect(.degrees(self.rotated ? 90 : 0))
                         .animation(.spring())
                 }
                 
                 //Menu drop downs
-                if showMenuItem1 {
+                if self.showMenuItem1 {
                     MenuItem(icon: "bookmark")
                 }
-                if showMenuItem2 {
+                if self.showMenuItem2 {
                     MenuItem(icon: "xmark")
                 }
-                if showMenuItem3 {
+                if self.showMenuItem3 {
                     MenuItem(icon: "square.and.arrow.up.fill")
                 }
             }
             .offset(x: -10, y: 10)
-        }
+        }.fixedSize()
     }
     
     func showMenu() {

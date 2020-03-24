@@ -11,12 +11,12 @@ import SwiftUI
 struct DiscoverView: View {
     @State private var following = false
     
-    let links: [String] = ["https://www.bonappetit.com/recipe/green-garlic-roast-chicken", "https://www.bonappetit.com/recipe/fusilli-with-battuto-di-erbe", "https://www.bonappetit.com/recipe/charred-leeks-with-honey-and-vinegar", "https://www.bonappetit.com/recipe/rigatoni-with-fennel-and-anchovies",
+    let links: [String] = ["https://www.bonappetit.com/recipe/green-garlic-roast-chicken", "https://www.bonappetit.com/recipe/fusilli-with-battuto-di-erbe", "https://www.bonappetit.com/recipe/digestive-cookies", "https://www.bonappetit.com/recipe/rigatoni-with-fennel-and-anchovies",
         "https://www.bonappetit.com/recipe/pork-and-asparagus-stir-fry",
         "https://www.bonappetit.com/recipe/ramen-noodles-with-spring-onions"]
     
     var body: some View {
-        ScrollView {
+        ScrollView(.vertical, showsIndicators: false) {
             VStack {
                 //For you/following Buttons
                 HStack(){
@@ -52,16 +52,9 @@ struct DiscoverView: View {
                 }
                 
                 //Cards
-                HStack(){
-                    VStack(){
-                        ForEach(0 ..< links.count/2) {
-                            CardFromURL(recipeURLString: self.links[$0])
-                        }
-                    }
-                    VStack(){
-                        ForEach(links.count/2 ..< links.count) {
-                            CardFromURL(recipeURLString: self.links[$0])
-                        }
+                VStack(){
+                    ForEach(0 ..< links.count) {
+                        CardFromURL(recipeURLString: self.links[$0])
                     }
                 }
             }

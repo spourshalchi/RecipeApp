@@ -10,24 +10,16 @@ import SwiftUI
 import struct Kingfisher.KFImage
 
 struct TestView: View {
-    let link = "https://assets.bonappetit.com/photos/5e6ac0e70847910008100987/3:2/w_5120,c_limit/BBaking_WEEK6_Biscuts_2.jpg"
-    @State var modalDisplayed = false
-    let recipe = Recipe(uid: 0, recipeURLString:"https://www.bonappetit.com/recipe/sour-cream-and-onion-biscuits" , imageURLString:"",title:"Sour Cream and Onion Biscuits", imageURL:URL(string: "https://assets.bonappetit.com/photos/5e6ac0e70847910008100987/3:2/w_5120,c_limit/BBaking_WEEK6_Biscuts_2.jpg")!, ingredients:["ingredint"],steps:["step"])
+    let links: [String] = ["https://www.bonappetit.com/recipe/green-garlic-roast-chicken", "https://www.bonappetit.com/recipe/fusilli-with-battuto-di-erbe", "https://www.bonappetit.com/recipe/sour-cream-and-onion-biscuits", "https://www.bonappetit.com/recipe/rigatoni-with-fennel-and-anchovies","https://www.bonappetit.com/recipe/pork-and-asparagus-stir-fry", "https://www.bonappetit.com/recipe/ramen-noodles-with-spring-onions"]
+        //let links: [String] = ["https://www.bonappetit.com/recipe/green-garlic-roast-chicken", "https://www.bonappetit.com/recipe/fusilli-with-battuto-di-erbe"]
 
     var body: some View {
-        VStack{
-            KFImage(URL( string: link)!)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 200, height: 300)
-                .clipped()
-                .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
-                .animation(Animation.spring())
-                .onTapGesture {
-                    self.modalDisplayed = true
-                }.sheet(isPresented: $modalDisplayed) {
-                    RecipeView(recipe:self.recipe, onDismiss: {self.modalDisplayed = false})
+        ScrollView{
+            VStack(){
+                ForEach(0 ..< links.count) {
+                    CardFromURL(recipeURLString: self.links[$0])
                 }
+            }
         }
     }
 }
@@ -39,10 +31,3 @@ struct TestView_Previews: PreviewProvider {
     }
 }
 
-struct DetailView: View {
-    var onDismiss: () -> ()
-    
-    var body: some View {
-        Text("Woot")
-    }
-}
