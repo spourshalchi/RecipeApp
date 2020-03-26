@@ -17,9 +17,9 @@ struct CardFromURL: View {
     
     //UI variables
     @State var rotated  = false
-    @State var showMenuItem1 = false
-    @State var showMenuItem2 = false
-    @State var showMenuItem3 = false
+    @State var showSaveButton = false
+    @State var showDislikeButton = false
+    @State var showShareButton = false
     @State var modalDisplayed = false
     
     init(recipeURLString: String){
@@ -59,14 +59,14 @@ struct CardFromURL: View {
                 }
                 
                 //Menu drop downs
-                if self.showMenuItem1 {
-                    MenuItem(icon: "bookmark")
+                if self.showSaveButton {
+                    SaveButton(recipe: self.recipeViewModel.recipe)
                 }
-                if self.showMenuItem2 {
-                    MenuItem(icon: "xmark")
+                if self.showDislikeButton {
+                    DislikeButton(recipe: self.recipeViewModel.recipe)
                 }
-                if self.showMenuItem3 {
-                    MenuItem(icon: "square.and.arrow.up.fill")
+                if self.showShareButton {
+                    ShareButton(recipe: self.recipeViewModel.recipe)
                 }
             }
             .offset(x: -10, y: 10)
@@ -77,16 +77,16 @@ struct CardFromURL: View {
     
     func showMenu() {
         withAnimation {
-            self.showMenuItem3.toggle()
+            self.showShareButton.toggle()
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             withAnimation {
-                self.showMenuItem2.toggle()
+                self.showDislikeButton.toggle()
             }
         })
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
             withAnimation {
-                self.showMenuItem1.toggle()
+                self.showSaveButton.toggle()
             }
         })
     }
@@ -99,18 +99,61 @@ struct CardFromURL_Previews: PreviewProvider {
 }
 
 
-struct MenuItem: View {
-    
-    var icon: String
+struct SaveButton: View {
+    @EnvironmentObject var recipeBook: RecipeBookViewModel
+    var recipe: Recipe
     
     var body: some View {
         ZStack() {
-            Image(systemName: icon)
+            Button(action: {
+                self.recipeBook.recipes.append(self.recipe)
+            }) {
+            Image(systemName: "bookmark")
                 .padding(10)
                 .background(Color.white)
                 .clipShape(Circle())
                 .shadow(radius: 2)
+            }
+        }
+        .transition(.move(edge: .trailing))
+    }
+}
 
+struct DislikeButton: View {
+    @EnvironmentObject var recipeBook: RecipeBookViewModel
+    var recipe: Recipe
+    
+    var body: some View {
+        ZStack() {
+            Button(action: {
+                //self.recipeBook.recipes.append(self.recipe)
+            }) {
+            Image(systemName: "xmark")
+                .padding(10)
+                .background(Color.white)
+                .clipShape(Circle())
+                .shadow(radius: 2)
+            }
+        }
+        .transition(.move(edge: .trailing))
+    }
+}
+
+struct ShareButton: View {
+    @EnvironmentObject var recipeBook: RecipeBookViewModel
+    var recipe: Recipe
+    
+    var body: some View {
+        ZStack() {
+            Button(action: {
+                //self.recipeBook.recipes.append(self.recipe)
+            }) {
+            Image(systemName: "square.and.arrow.up.fill")
+                .padding(10)
+                .background(Color.white)
+                .clipShape(Circle())
+                .shadow(radius: 2)
+            }
         }
         .transition(.move(edge: .trailing))
     }

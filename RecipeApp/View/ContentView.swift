@@ -9,7 +9,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    var recipeBook = RecipeBookViewModel()
+
     var body: some View {
         TabView{
             DiscoverView().tabItem({
@@ -28,6 +29,7 @@ struct ContentView: View {
                 Image(systemName:"person.crop.circle.fill")
             }).tag(1)
         }.accentColor(Color.red)
+        .environmentObject(recipeBook)
     }
 }
 
