@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import SwiftSoup
 import struct Kingfisher.KFImage
 
 struct CardFromURL: View {

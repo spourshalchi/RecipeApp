@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ShoppingListView: View {
     @State var hasShoppingList = false
+    @EnvironmentObject var recipeBook: RecipeBookViewModel
 
     var body: some View {
         VStack{
@@ -20,7 +21,7 @@ struct ShoppingListView: View {
             }) {
                 Image(systemName: "square.and.pencil")
             }.sheet(isPresented: $hasShoppingList) {
-                PickRecipesView()
+                CardGridFromRecipes().environmentObject(self.recipeBook)
             }
         }
     }
