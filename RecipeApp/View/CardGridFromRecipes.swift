@@ -18,17 +18,29 @@ struct CardGridFromRecipes: View {
         GeometryReader { geometry in
             VStack{
                 WaterfallGrid(self.recipeBook.recipes) { recipe in
-                    KFImage(recipe.imageURL)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: geometry.size.width * 0.46, height: geometry.size.height * 0.3)
-                        .clipped()
-                        .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
-                        .onTapGesture {
-                            self.modalDisplayed = true
-                        }.sheet(isPresented: self.$modalDisplayed) {
-                            RecipeView(recipe:recipe, onDismiss: {self.modalDisplayed = false})
-                        }
+                    VStack{
+                        //Image
+                        KFImage(recipe.imageURL)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: geometry.size.width * 0.46, height: geometry.size.height * 0.3)
+                            .clipped()
+                            //.clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
+                            .onTapGesture {
+                                self.modalDisplayed = true
+                            }.sheet(isPresented: self.$modalDisplayed) {
+                                RecipeView(recipe:recipe, onDismiss: {self.modalDisplayed = false})
+                            }
+                        
+                        //Title
+                        Text(recipe.title)
+                            .font(.headline)
+                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 10, trailing: 10))
+                    }
+                    .background(Color.white)
+                    .clipped()
+                    .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
+                    .shadow(radius: 10)
                 }
                 .gridStyle(
                     columns: 2,

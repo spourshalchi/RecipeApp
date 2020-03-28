@@ -38,7 +38,6 @@ struct RecipeBookView: View {
                         }
                     }
             }.navigationBarTitle(Text("Recipe Book"), displayMode: .inline)
-            .navigationBarItems(trailing: EditButton())
         }
     }
 }
