@@ -7,10 +7,23 @@
 //
 
 import SwiftUI
+import Firebase
+import GoogleSignIn
 
 struct ProfileView: View {
+    @EnvironmentObject var session: SessionStore
+    
     var body: some View {
-        Text("Profile")
+        Button(action: {
+            try! Auth.auth().signOut()
+            GIDSignIn.sharedInstance()?.signOut()
+            UserDefaults.standard.set(false, forKey: "status") //Saves the login status to persistent memory
+            //NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+            
+        }) {
+            
+            Text("Logout")
+        }
     }
 }
 
