@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12C406DAE53CF126DA6E5DE4 /* libPods-RecipeApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA81BC3C46F993432EED609B /* libPods-RecipeApp.a */; };
 		66041BD8242DA7F9007687C2 /* CardGridFromRecipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66041BD7242DA7F9007687C2 /* CardGridFromRecipes.swift */; };
 		66041BDE242DB298007687C2 /* WaterfallGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 66041BDD242DB298007687C2 /* WaterfallGrid */; };
 		6676D0372425B72100E13D55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676D0362425B72100E13D55 /* AppDelegate.swift */; };
@@ -20,17 +21,16 @@
 		6676D0542425B7B600E13D55 /* RecipeBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676D0532425B7B600E13D55 /* RecipeBookView.swift */; };
 		6676D0562425B7ED00E13D55 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676D0552425B7ED00E13D55 /* Recipe.swift */; };
 		6676D0582425B7FB00E13D55 /* RecipeBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676D0572425B7FB00E13D55 /* RecipeBookViewModel.swift */; };
+		66D57425242FC6A00074F734 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 66D57424242FC6A00074F734 /* GoogleService-Info.plist */; };
 		66EEA7632426C21500602889 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EEA7622426C21500602889 /* ProfileView.swift */; };
 		66EEA7652426C22E00602889 /* ShoppingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EEA7642426C22E00602889 /* ShoppingListView.swift */; };
 		66EEA76A2426E98400602889 /* RecipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EEA7692426E98400602889 /* RecipeViewModel.swift */; };
 		66EEA76C242701CA00602889 /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EEA76B242701CA00602889 /* RecipeView.swift */; };
 		66F535452427CA6700EC09DD /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F535442427CA6700EC09DD /* TestView.swift */; };
-		7865E69B0FCF828055FF0852 /* libPods-RecipeApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4645188A939246CA5854EE5E /* libPods-RecipeApp.a */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		402DAEDC8E64D5E46F026A82 /* Pods-RecipeApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecipeApp.debug.xcconfig"; path = "Target Support Files/Pods-RecipeApp/Pods-RecipeApp.debug.xcconfig"; sourceTree = "<group>"; };
-		4645188A939246CA5854EE5E /* libPods-RecipeApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RecipeApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A92610147CBBC7B62D5F33E /* Pods-RecipeApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecipeApp.release.xcconfig"; path = "Target Support Files/Pods-RecipeApp/Pods-RecipeApp.release.xcconfig"; sourceTree = "<group>"; };
 		66041BD7242DA7F9007687C2 /* CardGridFromRecipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGridFromRecipes.swift; sourceTree = "<group>"; };
 		6676D0332425B72100E13D55 /* RecipeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6676D0362425B72100E13D55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -45,12 +45,14 @@
 		6676D0532425B7B600E13D55 /* RecipeBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeBookView.swift; sourceTree = "<group>"; };
 		6676D0552425B7ED00E13D55 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		6676D0572425B7FB00E13D55 /* RecipeBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeBookViewModel.swift; sourceTree = "<group>"; };
+		66D57424242FC6A00074F734 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		66EEA7622426C21500602889 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		66EEA7642426C22E00602889 /* ShoppingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListView.swift; sourceTree = "<group>"; };
 		66EEA7692426E98400602889 /* RecipeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewModel.swift; sourceTree = "<group>"; };
 		66EEA76B242701CA00602889 /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
 		66F535442427CA6700EC09DD /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
-		EC0AD519E067BB3CBC2E6A32 /* Pods-RecipeApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecipeApp.release.xcconfig"; path = "Target Support Files/Pods-RecipeApp/Pods-RecipeApp.release.xcconfig"; sourceTree = "<group>"; };
+		CA81BC3C46F993432EED609B /* libPods-RecipeApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RecipeApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA3A2D576C2A2D4923602A25 /* Pods-RecipeApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecipeApp.debug.xcconfig"; path = "Target Support Files/Pods-RecipeApp/Pods-RecipeApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,8 +60,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7865E69B0FCF828055FF0852 /* libPods-RecipeApp.a in Frameworks */,
 				66041BDE242DB298007687C2 /* WaterfallGrid in Frameworks */,
+				12C406DAE53CF126DA6E5DE4 /* libPods-RecipeApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,18 +71,10 @@
 		3B177B8C456EDA3A7E439CDF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				402DAEDC8E64D5E46F026A82 /* Pods-RecipeApp.debug.xcconfig */,
-				EC0AD519E067BB3CBC2E6A32 /* Pods-RecipeApp.release.xcconfig */,
+				FA3A2D576C2A2D4923602A25 /* Pods-RecipeApp.debug.xcconfig */,
+				5A92610147CBBC7B62D5F33E /* Pods-RecipeApp.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		65CDE3254EA3F150B36A8CF0 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				4645188A939246CA5854EE5E /* libPods-RecipeApp.a */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		6676D02A2425B72100E13D55 = {
@@ -89,7 +83,7 @@
 				6676D0352425B72100E13D55 /* RecipeApp */,
 				6676D0342425B72100E13D55 /* Products */,
 				3B177B8C456EDA3A7E439CDF /* Pods */,
-				65CDE3254EA3F150B36A8CF0 /* Frameworks */,
+				89E7C137FCF6AA8F17AF4999 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,6 +103,7 @@
 				6676D03F2425B72200E13D55 /* Assets.xcassets */,
 				6676D0442425B72200E13D55 /* LaunchScreen.storyboard */,
 				6676D0472425B72200E13D55 /* Info.plist */,
+				66D57424242FC6A00074F734 /* GoogleService-Info.plist */,
 				6676D0412425B72200E13D55 /* Preview Content */,
 				66EEA7612426BB9300602889 /* View */,
 				66EEA7602426BB8C00602889 /* ViewModel */,
@@ -158,6 +153,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		89E7C137FCF6AA8F17AF4999 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CA81BC3C46F993432EED609B /* libPods-RecipeApp.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -165,7 +168,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6676D04A2425B72200E13D55 /* Build configuration list for PBXNativeTarget "RecipeApp" */;
 			buildPhases = (
-				EDD8C18D3951A001453A07E1 /* [CP] Check Pods Manifest.lock */,
+				9BBFF767B5C58A6FD0D64B87 /* [CP] Check Pods Manifest.lock */,
 				6676D02F2425B72100E13D55 /* Sources */,
 				6676D0302425B72100E13D55 /* Frameworks */,
 				6676D0312425B72100E13D55 /* Resources */,
@@ -224,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6676D0462425B72200E13D55 /* LaunchScreen.storyboard in Resources */,
+				66D57425242FC6A00074F734 /* GoogleService-Info.plist in Resources */,
 				6676D0432425B72200E13D55 /* Preview Assets.xcassets in Resources */,
 				6676D0402425B72200E13D55 /* Assets.xcassets in Resources */,
 			);
@@ -232,7 +236,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		EDD8C18D3951A001453A07E1 /* [CP] Check Pods Manifest.lock */ = {
+		9BBFF767B5C58A6FD0D64B87 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -408,7 +412,7 @@
 		};
 		6676D04B2425B72200E13D55 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 402DAEDC8E64D5E46F026A82 /* Pods-RecipeApp.debug.xcconfig */;
+			baseConfigurationReference = FA3A2D576C2A2D4923602A25 /* Pods-RecipeApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -429,7 +433,7 @@
 		};
 		6676D04C2425B72200E13D55 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EC0AD519E067BB3CBC2E6A32 /* Pods-RecipeApp.release.xcconfig */;
+			baseConfigurationReference = 5A92610147CBBC7B62D5F33E /* Pods-RecipeApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

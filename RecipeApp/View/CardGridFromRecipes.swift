@@ -29,7 +29,7 @@ struct CardGridFromRecipes: View {
                             .onTapGesture {
                                 self.modalDisplayed = true
                             }.sheet(isPresented: self.$modalDisplayed) {
-                                RecipeView(recipe:recipe, onDismiss: {self.modalDisplayed = false})
+                                RecipeView(recipe:recipe, onDismiss: {self.modalDisplayed = false}).environmentObject(self.recipeBook)
                             }
                         
                         //Title

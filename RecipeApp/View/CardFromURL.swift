@@ -15,7 +15,6 @@ struct CardFromURL: View {
     @ObservedObject var recipeViewModel = RecipeViewModel()
     @EnvironmentObject var recipeBook: RecipeBookViewModel
     
-    
     //UI variables
     @State var modalDisplayed = false
     @State var bookmarked = false
@@ -33,12 +32,10 @@ struct CardFromURL: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 400)
                     .clipped()
-                    //.clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
-                    .animation(Animation.spring())
                     .onTapGesture {
                         self.modalDisplayed = true
                     }.sheet(isPresented: self.$modalDisplayed) {
-                        RecipeView(recipe:self.recipeViewModel.recipe, onDismiss: {self.modalDisplayed = false})
+                        RecipeView(recipe:self.recipeViewModel.recipe, onDismiss: {self.modalDisplayed = false}).environmentObject(self.recipeBook)
                     }
 
                     //Bookmark

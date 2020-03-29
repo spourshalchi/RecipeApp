@@ -10,6 +10,12 @@ import SwiftUI
 import struct Kingfisher.KFImage
 
 struct RecipeView: View {
+    //Recipe view model
+    @EnvironmentObject var recipeBook: RecipeBookViewModel
+    
+    //UI variables
+    @State var bookmarked = false
+    
     let recipe: Recipe
     var onDismiss: () -> ()
     
@@ -18,6 +24,15 @@ struct RecipeView: View {
         GeometryReader { geometry in
             VStack{
                 ScrollView{
+                    //Bookmark
+                    Button(action: {
+                        self.bookmarked.toggle()
+                        self.recipeBook.recipes.append(self.recipe)
+                    }) {
+                        Text("Bookmark")
+                        Image(systemName: self.bookmarked ? "bookmark.fill" : "bookmark")
+                    }
+                    
                     //Image
                     KFImage(self.recipe.imageURL)
                         .resizable()

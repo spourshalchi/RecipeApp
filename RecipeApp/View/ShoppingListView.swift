@@ -21,7 +21,8 @@ struct ShoppingListView: View {
             }) {
                 Image(systemName: "square.and.pencil")
             }.sheet(isPresented: $hasShoppingList) {
-                CardGridFromRecipes().environmentObject(self.recipeBook)
+                //CardGridFromRecipes().environmentObject(self.recipeBook)
+                Text("To Do: implement pick recipes")
             }
         }
     }
