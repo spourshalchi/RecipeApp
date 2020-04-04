@@ -1,26 +1,24 @@
 //
-//  AuthView.swift
+//  SignUpView.swift
 //  RecipeApp
 //
-//  Created by Scott Pourshalchi on 3/29/20.
+//  Created by Scott Pourshalchi on 4/4/20.
 //  Copyright © 2020 Scott Pourshalchi. All rights reserved.
 //
-
 
 import SwiftUI
 import Firebase
 import GoogleSignIn
 
-struct AuthView: View {
+struct SignUpView: View {
     @State var email: String = ""
     @State var password: String = ""
     @State var msg = ""
     @State var alert = false
     @EnvironmentObject var session: SessionStore
-    @State var showSignUp = false
     
-    func signIn() {
-        session.signIn(email: email, password: password) { (result, error) in
+    func signUp() {
+        session.signUp(email: email, password: password) { (result, error) in
             if let error = error {
                 self.msg = error.localizedDescription
                 self.alert.toggle()
@@ -33,13 +31,14 @@ struct AuthView: View {
     var body: some View {
         VStack{
             Image(systemName:"flame")
-            Text("Sign In")
+            
+            Text("Sign Up")
                 .fontWeight(.heavy)
                 .font(.largeTitle)
                 .padding([.top,.bottom], 20)
             
             VStack(alignment: .leading){
-                //Email
+                //Username
                 VStack(alignment: .leading){
                     Text("Email")
                         .font(.headline)
@@ -62,70 +61,30 @@ struct AuthView: View {
                         .font(.headline)
                         .fontWeight(.light)
                         .foregroundColor(Color.init(.label).opacity(0.75))
-                        
+                    
                     SecureField("Enter Your Password", text: $password)
-
                     Divider()
                 }
-            }.padding(.horizontal, 6.0)
-        
+            }.padding(.horizontal, 6)
             
-            Button(action: signIn) {
-                Text("Sign In")
+            Button(action: signUp) {
+                Text("Sign Up")
                     .foregroundColor(.white)
                     .frame(width: UIScreen.main.bounds.width - 120)
                     .padding()
-            }
-            .background(Color.black)
-            .clipShape(Capsule())
-            .padding(.top, 45)
+            }.background(Color.black)
+                .clipShape(Capsule())
+                .padding(.top, 45)
             
-            VStack{
-                GoogleSignView()
-                    .frame(width: 150, height: 55)
-                
-                HStack(spacing: 8){
-                    Text("Don't Have An Account ?")
-                        .foregroundColor(Color.gray.opacity(0.5))
-                    
-                    Button(action: {
-                        self.showSignUp.toggle()
-                    }) {
-                       Text("Sign Up")
-                    }.foregroundColor(.blue)
-                }.padding(.top, 25)
-            }.sheet(isPresented: $showSignUp) {
-                SignUpView().environmentObject(self.session)
-            }
-        }
-        .padding()
+            }.padding()
         .alert(isPresented: $alert) {
             Alert(title: Text("Error"), message: Text(self.msg), dismissButton: .default(Text("Ok")))
         }
     }
 }
 
-
-
-struct AuthView_Previews: PreviewProvider {
+struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
-        AuthView().environmentObject(SessionStore())
-    }
-}
-
-struct GoogleSignView : UIViewRepresentable {
-    
-    func makeUIView(context: UIViewRepresentableContext<GoogleSignView>) -> GIDSignInButton {
-        
-        let button = GIDSignInButton()
-        button.colorScheme = .dark
-        GIDSignIn.sharedInstance()?.presentingViewController = UIApplication.shared.windows.last?.rootViewController
-        return button
-        
-    }
-    
-    func updateUIView(_ uiView: GIDSignInButton, context: UIViewRepresentableContext<GoogleSignView>) {
-        
-        
+        SignUpView().environmentObject(SessionStore())
     }
 }
