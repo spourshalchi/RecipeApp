@@ -81,7 +81,7 @@ struct AuthView: View {
             .padding(.top, 45)
             
             VStack{
-                GoogleSignView()
+                GoogleSignInView()
                     .frame(width: 150, height: 55)
                 
                 HStack(spacing: 8){
@@ -113,19 +113,3 @@ struct AuthView_Previews: PreviewProvider {
     }
 }
 
-struct GoogleSignView : UIViewRepresentable {
-    
-    func makeUIView(context: UIViewRepresentableContext<GoogleSignView>) -> GIDSignInButton {
-        
-        let button = GIDSignInButton()
-        button.colorScheme = .dark
-        GIDSignIn.sharedInstance()?.presentingViewController = UIApplication.shared.windows.last?.rootViewController
-        return button
-        
-    }
-    
-    func updateUIView(_ uiView: GIDSignInButton, context: UIViewRepresentableContext<GoogleSignView>) {
-        
-        
-    }
-}
