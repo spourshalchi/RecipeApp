@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		66026FB3243A41F200D53289 /* EmailSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66026FB2243A41F200D53289 /* EmailSignUpView.swift */; };
 		66041BD8242DA7F9007687C2 /* CardGridFromRecipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66041BD7242DA7F9007687C2 /* CardGridFromRecipes.swift */; };
 		66041BDE242DB298007687C2 /* WaterfallGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 66041BDD242DB298007687C2 /* WaterfallGrid */; };
 		6611F5802439675E00807EAC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6611F57F2439675E00807EAC /* LoginView.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		66026FB2243A41F200D53289 /* EmailSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignUpView.swift; sourceTree = "<group>"; };
 		66041BD7242DA7F9007687C2 /* CardGridFromRecipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGridFromRecipes.swift; sourceTree = "<group>"; };
 		6611F57F2439675E00807EAC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		6611F5812439678800807EAC /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -97,6 +99,19 @@
 				90D42C1DFA758EFF796AB24D /* Pods-RecipeApp.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		66026FAF243A418800D53289 /* Sign In and Up Views */ = {
+			isa = PBXGroup;
+			children = (
+				66A291BE2430F53C0098B290 /* AuthView.swift */,
+				66AAF0DE2438FB1A00E87EFB /* SignUpView.swift */,
+				6611F57F2439675E00807EAC /* LoginView.swift */,
+				6611F5852439698E00807EAC /* GoogleSignInView.swift */,
+				6611F5812439678800807EAC /* WelcomeView.swift */,
+				66026FB2243A41F200D53289 /* EmailSignUpView.swift */,
+			);
+			path = "Sign In and Up Views";
 			sourceTree = "<group>";
 		};
 		6676D02A2425B72100E13D55 = {
@@ -173,11 +188,7 @@
 				6676D0512425B7A800E13D55 /* DiscoverView.swift */,
 				6676D0532425B7B600E13D55 /* RecipeBookView.swift */,
 				66EEA76B242701CA00602889 /* RecipeView.swift */,
-				66A291BE2430F53C0098B290 /* AuthView.swift */,
-				66AAF0DE2438FB1A00E87EFB /* SignUpView.swift */,
-				6611F57F2439675E00807EAC /* LoginView.swift */,
-				6611F5852439698E00807EAC /* GoogleSignInView.swift */,
-				6611F5812439678800807EAC /* WelcomeView.swift */,
+				66026FAF243A418800D53289 /* Sign In and Up Views */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -343,6 +354,7 @@
 				6611F5802439675E00807EAC /* LoginView.swift in Sources */,
 				66AAF0DF2438FB1A00E87EFB /* SignUpView.swift in Sources */,
 				66EEA76A2426E98400602889 /* RecipeViewModel.swift in Sources */,
+				66026FB3243A41F200D53289 /* EmailSignUpView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,40 +12,42 @@ struct WelcomeView: View {
     @State var signUpClicked = false
     
     var body: some View {
-        ZStack{
-            //Image
-            VStack{
-                Image("Eggs")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(height: UIScreen.main.bounds.size.height * 0.6)
-                    
-                Spacer()
-            }
-            
-            //Cover
-            VStack{
-                Spacer()
-                Rectangle()
-                    .foregroundColor(.white)
-                    .frame(height: signUpClicked ? UIScreen.main.bounds.size.height * 0.6 : UIScreen.main.bounds.size.height * 0.4)
+        NavigationView{
+            ZStack{
+                //Image
+                VStack{
+                    Image("Eggs")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(height: UIScreen.main.bounds.size.height * 0.6)
+                        
+                    Spacer()
                 }
-            
-            //Gradient
-            VStack{
-                Rectangle()
-                    .foregroundColor(.clear)
-                    .frame(height: signUpClicked ? UIScreen.main.bounds.size.height * 0.4 : UIScreen.main.bounds.size.height * 0.6)
-                    .background(LinearGradient(gradient: Gradient(colors: [.clear, .clear, .white]), startPoint: .top, endPoint: .bottom))
-                Spacer()
+                
+                //Cover
+                VStack{
+                    Spacer()
+                    Rectangle()
+                        .foregroundColor(.white)
+                        .frame(height: signUpClicked ? UIScreen.main.bounds.size.height * 0.6 : UIScreen.main.bounds.size.height * 0.4)
+                    }
+                
+                //Gradient
+                VStack{
+                    Rectangle()
+                        .foregroundColor(.clear)
+                        .frame(height: signUpClicked ? UIScreen.main.bounds.size.height * 0.4 : UIScreen.main.bounds.size.height * 0.6)
+                        .background(LinearGradient(gradient: Gradient(colors: [.clear, .clear, .white]), startPoint: .top, endPoint: .bottom))
+                    Spacer()
+                    }
+                
+                if(signUpClicked) {
+                    SignUpContent(signUpClicked: self.$signUpClicked)
+                } else {
+                    WelcomeContent(signUpClicked: self.$signUpClicked)
                 }
-            
-            if(signUpClicked) {
-                SignUpContent(signUpClicked: self.$signUpClicked)
-            } else {
-                WelcomeContent(signUpClicked: self.$signUpClicked)
-            }
-        }.edgesIgnoringSafeArea(.all)
+            }.edgesIgnoringSafeArea(.all)
+        }.navigationBarHidden(true)
     }
 }
 
@@ -136,16 +138,14 @@ struct SignUpContent: View {
                 .padding()
 
             //Sign Up
-            Button(action: {
-                
-            }) {
+            NavigationLink(destination: EmailSignUpView()) {
                 Text("Continue with email")
-                .fontWeight(.bold)
-                .padding(10)
-                .frame(width: buttonWidth)
-                .background(Color.red)
-                .foregroundColor(.white)
-                .clipShape(Capsule())
+                    .fontWeight(.bold)
+                    .padding(10)
+                    .frame(width: buttonWidth)
+                    .background(Color.red)
+                    .foregroundColor(.white)
+                    .clipShape(Capsule())
             }
             
             //Continue with Facebook
