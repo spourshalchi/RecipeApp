@@ -23,7 +23,11 @@ struct ContentView: View {
             if (userSession.currentUser != nil){
                 TabView{
                     DiscoverView().tabItem({
-                        Image(systemName:"flame")
+                        Image("meal")
+                            .renderingMode(.template)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width:20)
                     }).tag(0)
                     
                     RecipeBookView().tabItem({

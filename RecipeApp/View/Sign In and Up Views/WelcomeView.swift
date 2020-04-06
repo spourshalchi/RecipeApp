@@ -71,7 +71,7 @@ struct WelcomeContent: View {
                 .frame(height: UIScreen.main.bounds.size.height * 0.6)
             
             //Logo
-            Image(systemName: "flame")
+            Image("meal")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width:80)
