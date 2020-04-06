@@ -40,7 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             
             print(res!.user.email!)
             UserDefaults.standard.set(true, forKey: "status") //Saves the login status to persistent memory
-            //NotificationCenter.default.post(name:NSNotification.Name("statusChange"),object:nil)
         }
     }
 

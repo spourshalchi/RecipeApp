@@ -99,15 +99,11 @@ struct WelcomeContent: View {
             }
 
             //Login
-            Button(action: {
-                self.showModal.toggle()
-            }) {
+            NavigationLink(destination: LoginView(showModal: self.$showModal)) {
                 Text("Log in")
-                .fontWeight(.medium)
-                .foregroundColor(.black)
-            }.padding()
-            .sheet(isPresented: $showModal) {
-                LoginView(showModal: self.$showModal)
+                    .fontWeight(.medium)
+                    .foregroundColor(.black)
+                    .padding()
             }
         }
     }
@@ -175,15 +171,11 @@ struct SignUpContent: View {
             }
 
             //Already have an account? Log in
-            Button(action: {
-                self.showModal.toggle()
-            }) {
+            NavigationLink(destination: LoginView(showModal: self.$showModal)) {
                 Text("Already have an account? Log in")
-                .fontWeight(.medium)
-                .foregroundColor(.black)
-            }.padding()
-            .sheet(isPresented: $showModal) {
-                LoginView(showModal: self.$showModal)
+                    .fontWeight(.medium)
+                    .foregroundColor(.black)
+                    .padding()
             }
             
             //Agree text

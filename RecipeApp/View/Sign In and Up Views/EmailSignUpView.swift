@@ -9,8 +9,7 @@
 import SwiftUI
 
 struct EmailSignUpView: View {
-    @State private var email = ""
-    @State var currentProgress: CGFloat = 0.33
+    @State var email = ""
     let buttonWidth = UIScreen.main.bounds.size.width * 0.8
     
     var body: some View {
@@ -37,12 +36,12 @@ struct EmailSignUpView: View {
                     
                     RoundedRectangle(cornerRadius: 20)
                         .foregroundColor(.black)
-                        .frame(width: buttonWidth*currentProgress, height: 10)
+                        .frame(width: buttonWidth*0.33, height: 10)
                 }
             }
             
             //Button
-            NavigationLink(destination: EmailSignUpView2()) {
+            NavigationLink(destination: EmailSignUpView2(email: self.$email)) {
                 Text("Next")
                     .fontWeight(.bold)
                     .padding(10)
@@ -51,16 +50,13 @@ struct EmailSignUpView: View {
                     .foregroundColor(.white)
                     .clipShape(Capsule())
             }
-        }.padding().KeyboardAwarePadding()
+        }
     }
 }
 
-
-
-
 struct EmailSignUpView2: View {
+    @Binding var email: String
     @State private var password = ""
-    @State var currentProgress: CGFloat = 0.66
     let buttonWidth = UIScreen.main.bounds.size.width * 0.8
 
     var body: some View {
@@ -87,12 +83,12 @@ struct EmailSignUpView2: View {
                     
                     RoundedRectangle(cornerRadius: 20)
                         .foregroundColor(.black)
-                        .frame(width: buttonWidth*currentProgress, height: 10)
+                        .frame(width: buttonWidth*0.66, height: 10)
                 }
             }
             
             //Button
-            NavigationLink(destination: EmailSignUpView3()) {
+            NavigationLink(destination: EmailSignUpView3(email: self.$email, password: self.$password)) {
                 Text("Next")
                     .fontWeight(.bold)
                     .padding(10)
@@ -101,15 +97,34 @@ struct EmailSignUpView2: View {
                     .foregroundColor(.white)
                     .clipShape(Capsule())
             }
-        }.padding().KeyboardAwarePadding()
+        }.padding()
     }
 }
 
-
 struct EmailSignUpView3: View {
+    //Login Variables
+    @EnvironmentObject var userSession: SessionStore
+    @Binding var email: String
+    @Binding var password: String
     @State private var name = ""
-    @State var currentProgress: CGFloat = 1.0
+    
+    //Misc
     let buttonWidth = UIScreen.main.bounds.size.width * 0.8
+
+    //Error Variables
+    @State var msg = ""
+    @State var alert = false
+    
+    func signUp() {
+        userSession.signUp(email: email, password: password) { (result, error) in
+            if let error = error {
+                self.msg = error.localizedDescription
+                self.alert.toggle()
+            } else {
+                UserDefaults.standard.set(true, forKey: "status")
+            }
+        }
+    }
     
     var body: some View {
         VStack(spacing: 40) {
@@ -135,13 +150,13 @@ struct EmailSignUpView3: View {
                     
                     RoundedRectangle(cornerRadius: 20)
                         .foregroundColor(.black)
-                        .frame(width: buttonWidth*currentProgress, height: 10)
+                        .frame(width: buttonWidth*1.0, height: 10)
                 }
             }
             
             //Button
-            NavigationLink(destination: Text("")) {
-                Text("Next")
+            Button(action: signUp) {
+                Text("Sign Up")
                     .fontWeight(.bold)
                     .padding(10)
                     .frame(width: buttonWidth)
@@ -149,10 +164,12 @@ struct EmailSignUpView3: View {
                     .foregroundColor(.white)
                     .clipShape(Capsule())
             }
-        }.padding().KeyboardAwarePadding()
+        }.padding()
+        .alert(isPresented: $alert) {
+            Alert(title: Text("Error"), message: Text(self.msg), dismissButton: .default(Text("Ok")))
+        }
     }
 }
-
 
 struct EmailSignUpView_Previews: PreviewProvider {
     static var previews: some View {
@@ -162,45 +179,14 @@ struct EmailSignUpView_Previews: PreviewProvider {
 
 struct EmailSignUpView2_Previews: PreviewProvider {
     static var previews: some View {
-        EmailSignUpView2()
+        EmailSignUpView2(email: .constant("test@email.com"))
     }
 }
 
 struct EmailSignUpView3_Previews: PreviewProvider {
     static var previews: some View {
-        EmailSignUpView3()
+        EmailSignUpView3(email: .constant("test@email.com"), password: .constant("password"))
     }
 }
 
-
-
-//Keyboard padding
-import Combine
-
-struct KeyboardAwareModifier: ViewModifier {
-    @State private var keyboardHeight: CGFloat = 0
-
-    private var keyboardHeightPublisher: AnyPublisher<CGFloat, Never> {
-        Publishers.Merge(
-            NotificationCenter.default
-                .publisher(for: UIResponder.keyboardWillShowNotification)
-                .compactMap { $0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue }
-                .map { $0.cgRectValue.height },
-            NotificationCenter.default
-                .publisher(for: UIResponder.keyboardWillHideNotification)
-                .map { _ in CGFloat(0) }
-       ).eraseToAnyPublisher()
-    }
-
-    func body(content: Content) -> some View {
-        content
-            .padding(.bottom, keyboardHeight)
-            .onReceive(keyboardHeightPublisher) { self.keyboardHeight = $0 }
-    }
-}
-
-extension View {
-    func KeyboardAwarePadding() -> some View {
-        ModifiedContent(content: self, modifier: KeyboardAwareModifier())
-    }
-}
+ 

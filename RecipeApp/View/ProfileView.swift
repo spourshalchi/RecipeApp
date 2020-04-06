@@ -32,7 +32,6 @@ struct ProfileView: View {
                 try! Auth.auth().signOut()
                 GIDSignIn.sharedInstance()?.signOut()
                 UserDefaults.standard.set(false, forKey: "status") //Saves the login status to persistent memory
-                //NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
                 
             }) {
                 Text("Logout")

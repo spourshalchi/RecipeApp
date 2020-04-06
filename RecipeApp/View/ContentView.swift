@@ -9,10 +9,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var session: SessionStore
+    @EnvironmentObject var userSession: SessionStore
     
     func getUser() {
-        session.listen()
+        userSession.listen()
     }
     
     var recipeBook = RecipeBookViewModel()
@@ -20,7 +20,7 @@ struct ContentView: View {
     var body: some View {
         Group{
             //If signed in
-            if (session.session != nil){
+            if (userSession.currentUser != nil){
                 TabView{
                     DiscoverView().tabItem({
                         Image(systemName:"flame")
