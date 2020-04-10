@@ -71,7 +71,7 @@ struct WelcomeContent: View {
                 .frame(height: UIScreen.main.bounds.size.height * 0.6)
             
             //Logo
-            Image("meal")
+            Image("mealBig")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width:80)
@@ -122,7 +122,7 @@ struct SignUpContent: View {
                 .frame(height: UIScreen.main.bounds.size.height * 0.4)
             
             //Logo
-            Image(systemName: "flame")
+            Image("mealBig")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width:80)

@@ -50,7 +50,7 @@ struct EmailSignUpView: View {
                     .foregroundColor(.white)
                     .clipShape(Capsule())
             }
-        }
+        }.padding()
     }
 }
 
