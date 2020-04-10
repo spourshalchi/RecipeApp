@@ -113,6 +113,8 @@ struct SignUpContent: View {
     @Binding var signUpClicked: Bool
     let buttonWidth = UIScreen.main.bounds.size.width * 0.8
     @State private var showModal = false
+    @EnvironmentObject var userSession: SessionStore
+
     
     var body: some View {
         VStack(spacing: 10){

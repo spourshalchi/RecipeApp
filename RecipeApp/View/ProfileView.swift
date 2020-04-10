@@ -9,23 +9,28 @@
 import SwiftUI
 import Firebase
 import GoogleSignIn
+import struct Kingfisher.KFImage
 
 struct ProfileView: View {
-    @EnvironmentObject var session: SessionStore
-    
-    let followers = 0
-    let following = 1
+    @EnvironmentObject var userSession: SessionStore
     
     var body: some View {
         VStack(){
-            Image(systemName:"person.fill")
             
-            Text("Display Name")
+            KFImage(URL(string: (userSession.currentUser?.photoURL)!))
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .clipShape(Circle())
+                .frame(width: UIScreen.main.bounds.size.width * 0.5)
+                .overlay(Circle().stroke(Color.white,lineWidth:4)
+                .shadow(radius: 10))
+
+            Text((userSession.currentUser?.displayName)!)
                 .font(.largeTitle)
             
             HStack(){
-                Text("\(followers) followers")
-                Text("\(following) following")
+                Text("\((userSession.currentUser?.followers.count)!) followers")
+                Text("\((userSession.currentUser?.following.count)!) following")
             }.padding()
 
             Button(action: {
@@ -36,6 +41,8 @@ struct ProfileView: View {
             }) {
                 Text("Logout")
             }
+            
+            Spacer()
         }
     }
 }

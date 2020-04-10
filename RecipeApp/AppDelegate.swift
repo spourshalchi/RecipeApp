@@ -39,21 +39,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 return
             }
             
-            print(res!.user.email!)
-            UserDefaults.standard.set(true, forKey: "status") //Saves the login status to persistent memory
+            //Saves the login status to persistent memory
+            UserDefaults.standard.set(true, forKey: "status")
             
             //Add user info to database
             let db = Firestore.firestore()
-            db.collection("users").document(String((res?.user.uid)!)).setData([
-                "id" : String((res?.user.uid)!),
-                "displayName" : (res?.user.displayName)!,
-                "photoURL" : (res?.user.photoURL?.absoluteString)!,
-                "email" : (res?.user.email)!,
-                "followers" : [],
-                "following" : [],
-                "recipeBook" : [],
-                "signUpMethod" : "Google"
-            ], merge: true)
+            let docRef = db.collection("users").document(String((res?.user.uid)!))
+            docRef.getDocument { (document, error) in
+                
+                //If user is already in the db only update the fields that we want to change
+                if let document = document, document.exists {
+                    docRef.setData([
+                        "id" : String((res?.user.uid)!),
+                        "displayName" : (res?.user.displayName)!,
+                        "photoURL" : (res?.user.photoURL?.absoluteString)!,
+                        "email" : (res?.user.email)!,
+                        "signUpMethod" : "Google"
+                    ], merge: true)
+                }
+                
+                //If user is not in the db yet create all new fields 
+                else {
+                    docRef.setData([
+                        "id" : String((res?.user.uid)!),
+                        "displayName" : (res?.user.displayName)!,
+                        "photoURL" : (res?.user.photoURL?.absoluteString)!,
+                        "email" : (res?.user.email)!,
+                        "followers" : [],
+                        "following" : [],
+                        "recipeBook" : [],
+                        "signUpMethod" : "Google"
+                    ], merge: true)
+                }
+            }
         }
     }
 

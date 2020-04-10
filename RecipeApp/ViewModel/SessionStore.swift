@@ -10,6 +10,7 @@ import SwiftUI
 import Firebase
 import Combine
 import GoogleSignIn
+import FirebaseFirestore
 
 class SessionStore: ObservableObject {
     @Published var currentUser: User?
@@ -18,7 +19,39 @@ class SessionStore: ObservableObject {
     func listen() {
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
             if let user = user {
-                self.currentUser = User(uid: user.uid, displayName:user.displayName, email: user.email)
+                let db = Firestore.firestore()
+                let docRef = db.collection("users").document(user.uid)
+                
+                docRef.getDocument { (document, error) in
+                    //If user is already in the db, populate the userSession with profile info
+                    if let document = document, document.exists {
+                        self.currentUser = User(
+                            uid: user.uid,
+                            displayName:user.displayName,
+                            email: user.email,
+                            photoURL: (document.get("photoURL") as? String ?? ""),
+                            followers: (document.get("followers") as? [String] ?? []),
+                            following: document.get("following") as? [String] ?? [],
+                            recipeBook: document.get("recipeBook") as? [String] ?? [],
+                            signUpMethod: (document.get("signUpMethod") as? String ?? "")
+                        )
+                    }
+                    
+                    //If new user create new session
+                    else {
+                        self.currentUser = User(
+                            uid: user.uid,
+                            displayName:user.displayName,
+                            email: user.email,
+                            photoURL: user.photoURL?.absoluteString,
+                            followers: [],
+                            following: [],
+                            recipeBook: [],
+                            signUpMethod: ""
+                        )
+                    }
+                }
+                
             } else {
                 self.currentUser = nil
             }
