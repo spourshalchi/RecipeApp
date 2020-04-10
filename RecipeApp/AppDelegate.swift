@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import FirebaseFirestore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
@@ -40,6 +41,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             
             print(res!.user.email!)
             UserDefaults.standard.set(true, forKey: "status") //Saves the login status to persistent memory
+            
+            //Add user info to database
+            let db = Firestore.firestore()
+            db.collection("users").document(String((res?.user.uid)!)).setData([
+                "id" : String((res?.user.uid)!),
+                "displayName" : (res?.user.displayName)!,
+                "photoURL" : (res?.user.photoURL?.absoluteString)!,
+                "email" : (res?.user.email)!,
+                "followers" : [],
+                "following" : [],
+                "recipeBook" : [],
+                "signUpMethod" : "Google"
+            ], merge: true)
         }
     }
 

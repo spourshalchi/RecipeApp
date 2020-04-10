@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct EmailSignUpView: View {
     @State var email = ""
@@ -20,6 +21,7 @@ struct EmailSignUpView: View {
                     .font(.title)
                     .bold()
                 TextField("Email address", text: $email)
+                    .autocapitalization(.none)
             }
                 
             VStack(alignment: .trailing) {
@@ -116,13 +118,26 @@ struct EmailSignUpView3: View {
     @State var alert = false
     
     func signUp() {
-        userSession.signUp(email: email, password: password) { (result, error) in
+        userSession.signUp(email: email, password: password) { (res, error) in
             if let error = error {
                 self.msg = error.localizedDescription
                 self.alert.toggle()
             } else {
                 UserDefaults.standard.set(true, forKey: "status")
             }
+            
+            //Add user info to database
+            let db = Firestore.firestore()
+            db.collection("users").document(String((res?.user.uid)!)).setData([
+                "id" : String((res?.user.uid)!),
+                "displayName" : self.name,
+                "photoURL" : "",
+                "email" : self.email,
+                "followers" : [],
+                "following" : [],
+                "recipeBook" : [],
+                "signUpMethod" : "Email"
+            ], merge: true)
         }
     }
     

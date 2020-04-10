@@ -159,7 +159,7 @@ struct SignUpContent: View {
             
             //Continue with Google
             Button(action: {
-                
+                GoogleSignInView().signIn()
             }) {
                 Text("Continue with Google")
                 .fontWeight(.bold)
