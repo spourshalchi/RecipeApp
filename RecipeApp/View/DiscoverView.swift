@@ -30,8 +30,8 @@ struct DiscoverView: View {
                                 .font(.body)
                         }
                         .padding()
-                        .foregroundColor(following ? .black : .white)
-                        .background(following ? Color.white : Color.black)
+                        .foregroundColor(following ? Color("Black") : Color("White"))
+                        .background(following ? Color("White") : Color("Black"))
                         .cornerRadius(40)
                     }
                     
@@ -45,8 +45,8 @@ struct DiscoverView: View {
                                 .font(.body)
                         }
                         .padding()
-                        .foregroundColor(following ? .white : .black)
-                        .background(following ? Color.black : Color.white)
+                        .foregroundColor(following ? Color("White") : Color("Black"))
+                        .background(following ? Color("Black") : Color("White"))
                         .cornerRadius(40)
                     }
                 }

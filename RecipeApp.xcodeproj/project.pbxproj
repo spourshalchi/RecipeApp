@@ -14,6 +14,7 @@
 		6611F5822439678800807EAC /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6611F5812439678800807EAC /* WelcomeView.swift */; };
 		6611F584243968D700807EAC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6611F583243968D700807EAC /* GoogleService-Info.plist */; };
 		6611F5862439698E00807EAC /* GoogleSignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6611F5852439698E00807EAC /* GoogleSignInView.swift */; };
+		6655E37F24421AFF00565B3C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6655E37E24421AFF00565B3C /* SettingsView.swift */; };
 		6676D0372425B72100E13D55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676D0362425B72100E13D55 /* AppDelegate.swift */; };
 		6676D0392425B72100E13D55 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676D0382425B72100E13D55 /* SceneDelegate.swift */; };
 		6676D03E2425B72100E13D55 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676D03D2425B72100E13D55 /* ContentView.swift */; };
@@ -42,6 +43,7 @@
 		6611F5812439678800807EAC /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		6611F583243968D700807EAC /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		6611F5852439698E00807EAC /* GoogleSignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInView.swift; sourceTree = "<group>"; };
+		6655E37E24421AFF00565B3C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		6676D0332425B72100E13D55 /* RecipeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6676D0362425B72100E13D55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6676D0382425B72100E13D55 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 			children = (
 				6676D03D2425B72100E13D55 /* ContentView.swift */,
 				66EEA7622426C21500602889 /* ProfileView.swift */,
+				6655E37E24421AFF00565B3C /* SettingsView.swift */,
 				66EEA7642426C22E00602889 /* ShoppingListView.swift */,
 				6676D04F2425B79200E13D55 /* CardFromURL.swift */,
 				66041BD7242DA7F9007687C2 /* CardGridFromRecipes.swift */,
@@ -335,6 +338,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6655E37F24421AFF00565B3C /* SettingsView.swift in Sources */,
 				6676D0502425B79200E13D55 /* CardFromURL.swift in Sources */,
 				6676D0582425B7FB00E13D55 /* RecipeBookViewModel.swift in Sources */,
 				66EEA7632426C21500602889 /* ProfileView.swift in Sources */,

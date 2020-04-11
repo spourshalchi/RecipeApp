@@ -37,7 +37,7 @@ struct EmailSignUpView: View {
                         .frame(width: buttonWidth, height: 10)
                     
                     RoundedRectangle(cornerRadius: 20)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("Black"))
                         .frame(width: buttonWidth*0.33, height: 10)
                 }
             }
@@ -84,7 +84,7 @@ struct EmailSignUpView2: View {
                         .frame(width: buttonWidth, height: 10)
                     
                     RoundedRectangle(cornerRadius: 20)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("Black"))
                         .frame(width: buttonWidth*0.66, height: 10)
                 }
             }
@@ -164,7 +164,7 @@ struct EmailSignUpView3: View {
                         .frame(width: buttonWidth, height: 10)
                     
                     RoundedRectangle(cornerRadius: 20)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("Black"))
                         .frame(width: buttonWidth*1.0, height: 10)
                 }
             }

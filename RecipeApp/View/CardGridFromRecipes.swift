@@ -37,7 +37,7 @@ struct CardGridFromRecipes: View {
                             .font(.headline)
                             .padding(EdgeInsets(top: 0, leading: 10, bottom: 10, trailing: 10))
                     }
-                    .background(Color.white)
+                    .background(Color("White"))
                     .clipped()
                     .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
                     .shadow(radius: 10)

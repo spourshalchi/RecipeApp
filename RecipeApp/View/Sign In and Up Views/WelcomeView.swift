@@ -28,7 +28,7 @@ struct WelcomeView: View {
                 VStack{
                     Spacer()
                     Rectangle()
-                        .foregroundColor(.white)
+                        .foregroundColor(Color("White"))
                         .frame(height: signUpClicked ? UIScreen.main.bounds.size.height * 0.6 : UIScreen.main.bounds.size.height * 0.4)
                     }
                 
@@ -37,7 +37,7 @@ struct WelcomeView: View {
                     Rectangle()
                         .foregroundColor(.clear)
                         .frame(height: signUpClicked ? UIScreen.main.bounds.size.height * 0.4 : UIScreen.main.bounds.size.height * 0.6)
-                        .background(LinearGradient(gradient: Gradient(colors: [.clear, .clear, .white]), startPoint: .top, endPoint: .bottom))
+                        .background(LinearGradient(gradient: Gradient(colors: [.clear, .clear, Color("White")]), startPoint: .top, endPoint: .bottom))
                     Spacer()
                     }
                 
@@ -72,10 +72,11 @@ struct WelcomeContent: View {
             
             //Logo
             Image("mealBig")
+                .renderingMode(.template)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width:80)
-                .foregroundColor(.red)
+                .foregroundColor(Color("Black"))
 
             //Text
             Text("Welcome")
@@ -102,8 +103,8 @@ struct WelcomeContent: View {
             NavigationLink(destination: LoginView(showModal: self.$showModal)) {
                 Text("Log in")
                     .fontWeight(.medium)
-                    .foregroundColor(.black)
                     .padding()
+                    .foregroundColor(Color("Black"))
             }
         }
     }
@@ -125,10 +126,11 @@ struct SignUpContent: View {
             
             //Logo
             Image("mealBig")
+                .renderingMode(.template)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width:80)
-                .foregroundColor(.red)
+                .foregroundColor(Color("Black"))
 
             //Text
             Text("Choose a signup method")
@@ -176,7 +178,7 @@ struct SignUpContent: View {
             NavigationLink(destination: LoginView(showModal: self.$showModal)) {
                 Text("Already have an account? Log in")
                     .fontWeight(.medium)
-                    .foregroundColor(.black)
+                    .foregroundColor(Color("Black"))
                     .padding()
             }
             

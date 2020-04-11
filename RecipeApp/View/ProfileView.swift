@@ -16,34 +16,49 @@ struct ProfileView: View {
     
     var body: some View {
         VStack(){
-            
+            //Profile picture
             KFImage(URL(string: (userSession.currentUser?.photoURL)!))
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .clipShape(Circle())
                 .frame(width: UIScreen.main.bounds.size.width * 0.5)
-                .overlay(Circle().stroke(Color.white,lineWidth:4)
+                .overlay(Circle().stroke(Color("White"),lineWidth:4)
                 .shadow(radius: 10))
+                .padding()
 
+            //Display name
             Text((userSession.currentUser?.displayName)!)
                 .font(.largeTitle)
             
+            //Followers and following
             HStack(){
                 Text("\((userSession.currentUser?.followers.count)!) followers")
                 Text("\((userSession.currentUser?.following.count)!) following")
             }.padding()
-
+            
+            //Logout
             Button(action: {
                 try! Auth.auth().signOut()
                 GIDSignIn.sharedInstance()?.signOut()
                 UserDefaults.standard.set(false, forKey: "status") //Saves the login status to persistent memory
-                
             }) {
                 Text("Logout")
             }
-            
             Spacer()
         }
+        .navigationBarTitle("", displayMode: .inline)
+        .navigationBarItems(
+            leading:
+                Button(action: {
+                    print("Messages here")
+                }) {
+                    Image(systemName: "paperplane")
+                },
+            trailing:
+                NavigationLink(destination: SettingsView()) {
+                    Image(systemName: "gear")
+                }
+        )
     }
 }
 

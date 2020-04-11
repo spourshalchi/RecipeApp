@@ -22,6 +22,7 @@ struct ContentView: View {
             //If signed in
             if (userSession.currentUser != nil){
                 TabView{
+                    //Discover view
                     DiscoverView().tabItem({
                         Image("meal")
                             .renderingMode(.template)
@@ -30,15 +31,19 @@ struct ContentView: View {
                             .frame(width:20)
                     }).tag(0)
                     
+                    //Recipe book
                     RecipeBookView().tabItem({
                         Image(systemName:"book")
                     }).tag(1)
                     
+                    //Shopping list
                     ShoppingListView().tabItem({
                         Image(systemName:"list.bullet")
                     }).tag(1)
                     
-                    ProfileView().tabItem({
+                    //Profile
+                    ProfileView()
+                    .tabItem({
                         Image(systemName:"person.crop.circle.fill")
                     }).tag(1)
                 }.accentColor(Color.red)
