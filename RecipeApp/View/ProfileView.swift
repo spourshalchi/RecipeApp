@@ -16,37 +16,29 @@ struct ProfileView: View {
     
     var body: some View {
         VStack(){
-            //Profile picture
-            KFImage(URL(string: (userSession.currentUser?.photoURL)!))
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .clipShape(Circle())
-                .frame(width: UIScreen.main.bounds.size.width * 0.5)
-                .overlay(Circle().stroke(Color("White"),lineWidth:4)
-                .shadow(radius: 10))
-                .padding()
+            if (userSession.currentUser != nil) {
+                //Profile picture
+                KFImage(URL(string: (userSession.currentUser?.photoURL)!))
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .clipShape(Circle())
+                    .frame(width: UIScreen.main.bounds.size.width * 0.5)
+                    .overlay(Circle().stroke(Color("White"),lineWidth:4)
+                    .shadow(radius: 10))
+                    .padding()
 
-            //Display name
-            Text((userSession.currentUser?.displayName)!)
-                .font(.largeTitle)
-            
-            //Followers and following
-            HStack(){
-                Text("\((userSession.currentUser?.followers.count)!) followers")
-                Text("\((userSession.currentUser?.following.count)!) following")
-            }.padding()
-            
-            //Logout
-            Button(action: {
-                try! Auth.auth().signOut()
-                GIDSignIn.sharedInstance()?.signOut()
-                UserDefaults.standard.set(false, forKey: "status") //Saves the login status to persistent memory
-            }) {
-                Text("Logout")
+                //Display name
+                Text((userSession.currentUser?.displayName)!)
+                    .font(.largeTitle)
+                
+                //Followers and following
+                HStack(){
+                    Text("\((userSession.currentUser?.followers.count)!) followers")
+                    Text("\((userSession.currentUser?.following.count)!) following")
+                }.padding()
             }
             Spacer()
         }
-        .navigationBarTitle("", displayMode: .inline)
         .navigationBarItems(
             leading:
                 Button(action: {

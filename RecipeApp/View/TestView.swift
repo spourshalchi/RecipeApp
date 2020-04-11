@@ -9,12 +9,9 @@
 import SwiftUI
 
 struct TestView: View {
+
     var body: some View {
-        Image("meal")
-            .renderingMode(.template)
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width:20)
+        Text("Test")
     }
 }
 

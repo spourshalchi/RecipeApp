@@ -15,6 +15,7 @@
 		6611F584243968D700807EAC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6611F583243968D700807EAC /* GoogleService-Info.plist */; };
 		6611F5862439698E00807EAC /* GoogleSignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6611F5852439698E00807EAC /* GoogleSignInView.swift */; };
 		6655E37F24421AFF00565B3C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6655E37E24421AFF00565B3C /* SettingsView.swift */; };
+		6655E38124423BC000565B3C /* UserSettingsSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6655E38024423BC000565B3C /* UserSettingsSession.swift */; };
 		6676D0372425B72100E13D55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676D0362425B72100E13D55 /* AppDelegate.swift */; };
 		6676D0392425B72100E13D55 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676D0382425B72100E13D55 /* SceneDelegate.swift */; };
 		6676D03E2425B72100E13D55 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676D03D2425B72100E13D55 /* ContentView.swift */; };
@@ -44,6 +45,7 @@
 		6611F583243968D700807EAC /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		6611F5852439698E00807EAC /* GoogleSignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInView.swift; sourceTree = "<group>"; };
 		6655E37E24421AFF00565B3C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		6655E38024423BC000565B3C /* UserSettingsSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsSession.swift; sourceTree = "<group>"; };
 		6676D0332425B72100E13D55 /* RecipeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6676D0362425B72100E13D55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6676D0382425B72100E13D55 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				6676D0572425B7FB00E13D55 /* RecipeBookViewModel.swift */,
 				66EEA7692426E98400602889 /* RecipeViewModel.swift */,
 				66A291BC2430F4E70098B290 /* SessionStore.swift */,
+				6655E38024423BC000565B3C /* UserSettingsSession.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				66EEA76A2426E98400602889 /* RecipeViewModel.swift in Sources */,
 				66026FB8243AD0E200D53289 /* LoginView.swift in Sources */,
 				66026FB3243A41F200D53289 /* EmailSignUpView.swift in Sources */,
+				6655E38124423BC000565B3C /* UserSettingsSession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

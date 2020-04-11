@@ -42,7 +42,9 @@ struct ContentView: View {
                     }).tag(1)
                     
                     //Profile
-                    ProfileView()
+                    NavigationView{
+                        ProfileView()
+                    }
                     .tabItem({
                         Image(systemName:"person.crop.circle.fill")
                     }).tag(1)
