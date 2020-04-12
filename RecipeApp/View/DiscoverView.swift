@@ -7,16 +7,19 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
+import struct Kingfisher.KFImage
 
 struct DiscoverView: View {
     @State private var following = false
-    
-    let links: [String] = ["https://www.bonappetit.com/recipe/green-garlic-roast-chicken", "https://www.bonappetit.com/recipe/fusilli-with-battuto-di-erbe", "https://www.bonappetit.com/recipe/digestive-cookies", "https://www.bonappetit.com/recipe/rigatoni-with-fennel-and-anchovies",
-        "https://www.bonappetit.com/recipe/pork-and-asparagus-stir-fry",
-        "https://www.bonappetit.com/recipe/ramen-noodles-with-spring-onions"]
+    @State var loadedRecipes: [Recipe] = []
+    let db = Firestore.firestore()
+    @State var lastSnapshot: QueryDocumentSnapshot?
+    @EnvironmentObject var recipeBook: RecipeBookViewModel
     
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
+        
+        ScrollView{
             VStack {
                 //For you/following Buttons
                 HStack(){
@@ -52,11 +55,110 @@ struct DiscoverView: View {
                 }
                 
                 //Cards
-                VStack(){
-                    ForEach(0 ..< links.count) {
-                        CardFromURL(recipeURLString: self.links[$0])
+                if(loadedRecipes.count > 0){
+                    ForEach(loadedRecipes) { recipe in
+                        VStack{
+                            ZStack(alignment: .topTrailing){
+                                KFImage(recipe.imageURL)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: UIScreen.main.bounds.size.width * 0.9)
+                                    .clipped()
+                                
+                                //Bookmark
+                                Button(action: {
+                                    self.recipeBook.recipes.append(recipe)
+                                }) {
+                                    Image(systemName: "bookmark.fill")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 30)
+                                        .foregroundColor(.red)
+                                }
+                                .offset(x: -20)
+                                .buttonStyle(PlainButtonStyle())
+                            }
+                            Text(recipe.title)
+                                .font(.headline)
+                                .multilineTextAlignment(.center)
+                                .frame(width: UIScreen.main.bounds.size.width * 0.9)
+                                .padding(.bottom, 10)
+                        }
+                            .background(Color("White"))
+                            .clipped()
+                            .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
+                            .shadow(radius: 5)
                     }
                 }
+                
+                Button(action:loadMoreRecieps){
+                    Image(systemName:"arrow.down.circle.fill")
+                    .padding(.bottom, 15)
+                }
+            }.frame(width: UIScreen.main.bounds.size.width)
+        }
+        .onAppear {
+            //First query
+            let first = self.db.collection("recipes")
+                .order(by: "title")
+                .limit(to: 10)
+            
+            first.addSnapshotListener { (snapshot, error) in
+                guard let snapshot = snapshot else {
+                    print("Error retreving recipes: \(error.debugDescription)")
+                    return
+                }
+
+                //Update last snapshot variable
+                self.lastSnapshot = snapshot.documents.last
+
+                //Print first query results
+                for document in snapshot.documents {
+                    //Add to loaded recipes
+                    self.loadedRecipes.append(Recipe(
+                        recipeURLString: (document.data()["recipeURLString"] as! String),
+                        imageURLString: (document.data()["imageURLString"] as! String),
+                        title: (document.data()["title"] as! String),
+                        imageURL: URL(string: (document.data()["imageURLString"] as! String)),
+                        ingredients: (document.data()["ingredients"] as? [String] ?? []),
+                        steps: (document.data()["steps"] as? [String] ?? []),
+                        contributor: (document.data()["contributor"] as! String),
+                        publisher: (document.data()["publisher"] as! String)
+                    ))
+                }
+            }
+        }
+    }
+    
+    func loadMoreRecieps(){
+        //Start from where last query left off
+        let next = self.db.collection("recipes")
+            .order(by: "title")
+            .start(afterDocument: self.lastSnapshot!)
+            .limit(to: 10)
+        
+        next.addSnapshotListener { (snapshot, error) in
+            guard let snapshot = snapshot else {
+                print("Error retreving recipes: \(error.debugDescription)")
+                return
+            }
+            
+            //Update last snapshot variable
+            self.lastSnapshot = snapshot.documents.last
+            
+            //Print first query results
+            for document in snapshot.documents {
+                //Add to loaded recipes
+                self.loadedRecipes.append(Recipe(
+                    recipeURLString: (document.data()["recipeURLString"] as! String),
+                    imageURLString: (document.data()["imageURLString"] as! String),
+                    title: (document.data()["title"] as! String),
+                    imageURL: URL(string: (document.data()["imageURLString"] as! String)),
+                    ingredients: (document.data()["ingredients"] as? [String] ?? []),
+                    steps: (document.data()["steps"] as? [String] ?? []),
+                    contributor: (document.data()["contributor"] as! String),
+                    publisher: (document.data()["publisher"] as! String)
+                ))
             }
         }
     }

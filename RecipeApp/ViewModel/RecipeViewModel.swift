@@ -10,7 +10,7 @@ import SwiftUI
 import SwiftSoup
 
 class RecipeViewModel: ObservableObject {
-    @Published var recipe = Recipe(uid: 0, recipeURLString:"" , imageURLString:"",title:"", imageURL:nil,ingredients:[],steps:[])
+    @Published var recipe = Recipe(recipeURLString:"" , imageURLString:"",title:"", imageURL:nil,ingredients:[],steps:[], contributor: "", publisher: "")
     
     func setRecipe(recipeURLString: String) {
         let url = URL(string: recipeURLString)

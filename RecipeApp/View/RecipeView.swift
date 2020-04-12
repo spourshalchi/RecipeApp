@@ -79,6 +79,15 @@ struct RecipeView: View {
 
 struct RecipeView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeView(recipe: Recipe(uid: 0, recipeURLString:"https://www.bonappetit.com/recipe/charred-leeks-with-honey-and-vinegar" , imageURLString:"https://assets.bonappetit.com/photos/5e6ac0e70847910008100987/3:2/w_5120,c_limit/BBaking_WEEK6_Biscuts_2.jpg",title:"Ramen Noodles With Spring Onions and Garlic Crisp", imageURL:URL(string:"https://assets.bonappetit.com/photos/5e5e818d58c694000852fc48/16:9/w_5120,c_limit/Alliums-Charred-Leeks-Honey-and-Vinegar.jpg")!,ingredients:["ingredint"],steps:["step"]), onDismiss:{})
+        RecipeView(recipe: Recipe(
+            recipeURLString:"https://www.bonappetit.com/recipe/charred-leeks-with-honey-and-vinegar" ,
+            imageURLString:"https://assets.bonappetit.com/photos/5e6ac0e70847910008100987/3:2/w_5120,c_limit/BBaking_WEEK6_Biscuts_2.jpg",
+            title:"Ramen Noodles With Spring Onions and Garlic Crisp",
+            imageURL:URL(string:"https://assets.bonappetit.com/photos/5e5e818d58c694000852fc48/16:9/w_5120,c_limit/Alliums-Charred-Leeks-Honey-and-Vinegar.jpg")!,
+            ingredients:["ingredint"],
+            steps:["step"],
+            contributor: "Molly Baz",
+            publisher: "Bon Apettit"
+        ), onDismiss:{})
     }
 }

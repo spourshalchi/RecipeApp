@@ -34,7 +34,7 @@ struct RecipeBookView: View {
                                 //Text
                                 Text(recipe.title)
                                 Spacer()
-                            }.padding(.leading,10)
+                            }.padding(.leading,5)
                         }
                     }
             }.navigationBarTitle(Text("Recipe Book"), displayMode: .inline)
