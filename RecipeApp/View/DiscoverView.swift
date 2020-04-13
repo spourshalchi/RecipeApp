@@ -16,6 +16,7 @@ struct DiscoverView: View {
     let db = Firestore.firestore()
     @State var lastSnapshot: QueryDocumentSnapshot?
     @EnvironmentObject var recipeBook: RecipeBookViewModel
+    @State var modalDisplayed = false
     
     var body: some View {
         
@@ -65,18 +66,18 @@ struct DiscoverView: View {
                                     .frame(width: UIScreen.main.bounds.size.width * 0.9)
                                     .clipped()
                                 
-                                //Bookmark
-                                Button(action: {
-                                    self.recipeBook.recipes.append(recipe)
-                                }) {
-                                    Image(systemName: "bookmark.fill")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 30)
-                                        .foregroundColor(.red)
-                                }
-                                .offset(x: -20)
-                                .buttonStyle(PlainButtonStyle())
+//                                //Bookmark
+//                                Button(action: {
+//                                    self.recipeBook.recipes.append(recipe)
+//                                }) {
+//                                    Image(systemName: "bookmark.fill")
+//                                        .resizable()
+//                                        .aspectRatio(contentMode: .fit)
+//                                        .frame(width: 30)
+//                                        .foregroundColor(.red)
+//                                }
+//                                .offset(x: -20)
+//                                .buttonStyle(PlainButtonStyle())
                             }
                             Text(recipe.title)
                                 .font(.headline)
@@ -86,9 +87,43 @@ struct DiscoverView: View {
                         }
                             .background(Color("White"))
                             .clipped()
-                            .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
+                            .clipShape(RoundedRectangle(cornerRadius: 13, style: .continuous))
                             .shadow(radius: 5)
-                    }
+                            
+                            //Recipe on tap
+                            .onTapGesture {
+                                self.modalDisplayed = true
+                            }.sheet(isPresented: self.$modalDisplayed) {
+                                RecipeView(recipe:recipe, onDismiss: {self.modalDisplayed = false}).environmentObject(self.recipeBook)
+                            }
+                            
+                            //Context menu
+                            .contextMenu {
+                                //Bookmark
+                                Button(action: {
+                                    self.recipeBook.recipes.append(recipe)
+                                }) {
+                                    Text("Add to recipe book")
+                                    Image(systemName: "book")
+                                }
+                                
+//                                //Less like this
+//                                Button(action: {
+//                                  // copy the content to the paste board
+//                                }) {
+//                                    Text("Less like this")
+//                                    Image(systemName: "xmark")
+//                                }
+                                
+//                                //Share
+//                                Button(action: {
+//                                  // copy the content to the paste board
+//                                }) {
+//                                    Text("Share")
+//                                    Image(systemName: "square.and.arrow.up.fill")
+//                                }
+                            }
+                        }
                 }
                 
                 Button(action:loadMoreRecieps){

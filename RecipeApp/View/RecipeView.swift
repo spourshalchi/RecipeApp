@@ -12,66 +12,151 @@ import struct Kingfisher.KFImage
 struct RecipeView: View {
     //Recipe view model
     @EnvironmentObject var recipeBook: RecipeBookViewModel
-    
-    //UI variables
-    @State var bookmarked = false
+    let textWidth = UIScreen.main.bounds.size.width * 0.95
     
     let recipe: Recipe
     var onDismiss: () -> ()
     
     var body: some View {
-        
-        GeometryReader { geometry in
+        ScrollView{
             VStack{
-                ScrollView{
-                    //Bookmark
-                    Button(action: {
-                        self.bookmarked.toggle()
-                        self.recipeBook.recipes.append(self.recipe)
-                    }) {
-                        Text("Bookmark")
-                        Image(systemName: self.bookmarked ? "bookmark.fill" : "bookmark")
-                    }
-                    
+                ZStack(alignment: .bottomTrailing){
                     //Image
                     KFImage(self.recipe.imageURL)
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(height: 300)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: UIScreen.main.bounds.size.width)
                     
-                    //Title
-                    Text(self.recipe.title)
-                        .font(.title)
-                        .multilineTextAlignment(.center)
-                        .frame(width: geometry.size.width)
-                        .padding()
-                    
-                    //Ingredients
-                    VStack(spacing:20){
-                        Text("Ingredients")
-                            .font(.headline)
-                        ForEach(self.recipe.ingredients, id: \.self) { ingredient in
-                            Text(ingredient)
-                                .font(.body)
-                                .multilineTextAlignment(.center)
-                                .frame(width: geometry.size.width)
+                    //Bookmark
+                    Button(action: {
+                        self.recipeBook.recipes.append(self.recipe)
+                    }) {
+                        HStack{
+                            Image(systemName: "book")
+                            Text("Save").fontWeight(.bold)
                         }
-                    }.padding()
-                    
-                    //Steps
-                    VStack(alignment:.leading, spacing:20){
-                        Text("Steps")
-                            .font(.headline)
-                        ForEach(self.recipe.steps, id: \.self) { step in
-                            Text(step)
-                                .font(.body)
-                                .multilineTextAlignment(.leading)
-                                .frame(width: geometry.size.width)
-                        }
-                    }.padding()
+                        .padding(10)
+                        .background(Color.black.opacity(0.5))
+                        .foregroundColor(.white)
+                        .clipShape(Capsule())
+                        .padding(7)
+                    }
                 }
-                .edgesIgnoringSafeArea(.bottom)
-                .offset(y:30)
+                
+                //Title
+                Text(self.recipe.title)
+                    .font(.title)
+                    .fontWeight(.medium)
+                    .multilineTextAlignment(.leading)
+                    .frame(width: textWidth, alignment: .leading)
+                
+                //Contributor
+                Text(self.recipe.contributor.uppercased())
+                    .font(.subheadline)
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.leading)
+                    .frame(width: textWidth, alignment: .leading)
+                    .padding(.bottom, 10)
+                
+                //Yield
+                //NOTE: Not implemented
+                Text("YIELD 4 servings")
+                    .font(.footnote)
+                    .fontWeight(.bold)
+                    .frame(width: textWidth, alignment: .leading)
+                
+                //Time
+                //NOTE: Not implemented
+                Text("TIME 40 minutes")
+                    .font(.footnote)
+                    .fontWeight(.bold)
+                    .frame(width: textWidth, alignment: .leading)
+                    .padding(.bottom, 12)
+                
+                //Cooked and review spacer
+                ZStack{
+                    Rectangle()
+                        .fill(Color("BackgroundNeu"))
+                        .frame(width: UIScreen.main.bounds.size.width, height:UIScreen.main.bounds.size.width*0.1)
+                    HStack{
+                        HStack{
+                            Text("COOKED?")
+                                .foregroundColor(.gray)
+                                .font(.footnote)
+                                .fontWeight(.bold)
+                            Image(systemName: "checkmark.circle").foregroundColor(.gray)
+                        }.padding()
+                        Spacer()
+                        HStack{
+                            Text("50")
+                                .foregroundColor(.gray)
+                                .font(.footnote)
+                                .fontWeight(.bold)
+                            Image(systemName: "star.fill").foregroundColor(.gray)
+                            Image(systemName: "star.fill").foregroundColor(.gray)
+                            Image(systemName: "star.fill").foregroundColor(.gray)
+                            Image(systemName: "star.fill").foregroundColor(.gray)
+                            Image(systemName: "star.lefthalf.fill").foregroundColor(.gray)
+                        }.padding()
+                    }
+                }
+
+                //Ingredients header
+                Text("Ingredients".uppercased())
+                    .font(.subheadline)
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.leading)
+                    .frame(width: textWidth, alignment: .leading)
+                    .padding(.bottom, 20)
+                
+                //Ingredients
+                VStack(spacing: 15){
+                    ForEach(self.recipe.ingredients, id: \.self) { ingredient in
+                        Text(ingredient)
+                            .font(.footnote)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.leading)
+                            .frame(width: self.textWidth, alignment: .leading)
+                    }
+                    
+                    //Add recipe ingredients to grocery list
+                    Button(action:{
+                        //
+                    }) {
+                        Text("Add to Your Shopping List")
+                            .fontWeight(.bold)
+                            .padding(10)
+                            .frame(width: textWidth)
+                            .background(Color.gray)
+                            .foregroundColor(.white)
+                            .clipShape(Capsule())
+                    }
+                    
+                    Divider()
+                }.padding(.bottom, 20)
+                
+                //Steps header
+                Text("Steps".uppercased())
+                    .font(.subheadline)
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.leading)
+                    .frame(width: textWidth, alignment: .leading)
+                    .padding(.bottom, 20)
+                
+                //Steps
+                VStack(spacing: 15){
+                    ForEach(self.recipe.steps, id: \.self) { step in
+                        VStack(){
+                            Text("Step")
+                                .font(.footnote)
+                                .fontWeight(.bold)
+                                .frame(width: self.textWidth, alignment: .leading)
+                            Text(step)
+                                .font(.footnote)
+                                .frame(width: self.textWidth, alignment: .leading)
+                        }
+                    }
+                }
             }
         }
     }
