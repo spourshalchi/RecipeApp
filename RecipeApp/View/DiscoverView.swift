@@ -79,6 +79,7 @@ struct DiscoverView: View {
 //                                .offset(x: -20)
 //                                .buttonStyle(PlainButtonStyle())
                             }
+                            
                             Text(recipe.title)
                                 .font(.headline)
                                 .multilineTextAlignment(.center)
@@ -90,21 +91,19 @@ struct DiscoverView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 13, style: .continuous))
                             .shadow(radius: 5)
                             
-                            //Recipe on tap
-                            .onTapGesture {
-                                self.modalDisplayed = true
-                            }.sheet(isPresented: self.$modalDisplayed) {
-                                RecipeView(recipe:recipe, onDismiss: {self.modalDisplayed = false}).environmentObject(self.recipeBook)
-                            }
-                            
                             //Context menu
                             .contextMenu {
                                 //Bookmark
                                 Button(action: {
-                                    self.recipeBook.recipes.append(recipe)
+                                    //Add only if not already in
+                                    if let index = self.recipeBook.recipes.firstIndex(of: recipe) {
+                                        self.recipeBook.recipes.remove(at: index)
+                                    } else {
+                                        self.recipeBook.recipes.append(recipe)
+                                    }
                                 }) {
-                                    Text("Add to recipe book")
-                                    Image(systemName: "book")
+                                    Text(self.recipeBook.recipes.contains(recipe) ? "Unsave from recipe book" : "Save to recipe book").multilineTextAlignment(.center)
+                                    Image(systemName: self.recipeBook.recipes.contains(recipe) ? "book.fill": "book")
                                 }
                                 
 //                                //Less like this
@@ -133,34 +132,40 @@ struct DiscoverView: View {
             }.frame(width: UIScreen.main.bounds.size.width)
         }
         .onAppear {
-            //First query
-            let first = self.db.collection("recipes")
-                .order(by: "title")
-                .limit(to: 10)
-            
-            first.addSnapshotListener { (snapshot, error) in
-                guard let snapshot = snapshot else {
-                    print("Error retreving recipes: \(error.debugDescription)")
-                    return
-                }
+            if(self.loadedRecipes.count == 0) {
+                self.loadFirstRecipes()
+            }
+        }
+    }
+    
+    func loadFirstRecipes(){
+        //First query
+        let first = self.db.collection("recipes")
+            .order(by: "title")
+            .limit(to: 10)
+        
+        first.addSnapshotListener { (snapshot, error) in
+            guard let snapshot = snapshot else {
+                print("Error retreving recipes: \(error.debugDescription)")
+                return
+            }
 
-                //Update last snapshot variable
-                self.lastSnapshot = snapshot.documents.last
+            //Update last snapshot variable
+            self.lastSnapshot = snapshot.documents.last
 
-                //Print first query results
-                for document in snapshot.documents {
-                    //Add to loaded recipes
-                    self.loadedRecipes.append(Recipe(
-                        recipeURLString: (document.data()["recipeURLString"] as! String),
-                        imageURLString: (document.data()["imageURLString"] as! String),
-                        title: (document.data()["title"] as! String),
-                        imageURL: URL(string: (document.data()["imageURLString"] as! String)),
-                        ingredients: (document.data()["ingredients"] as? [String] ?? []),
-                        steps: (document.data()["steps"] as? [String] ?? []),
-                        contributor: (document.data()["contributor"] as! String),
-                        publisher: (document.data()["publisher"] as! String)
-                    ))
-                }
+            //Print first query results
+            for document in snapshot.documents {
+                //Add to loaded recipes
+                self.loadedRecipes.append(Recipe(
+                    recipeURLString: (document.data()["recipeURLString"] as! String),
+                    imageURLString: (document.data()["imageURLString"] as! String),
+                    title: (document.data()["title"] as! String),
+                    imageURL: URL(string: (document.data()["imageURLString"] as! String)),
+                    ingredients: (document.data()["ingredients"] as? [String] ?? []),
+                    steps: (document.data()["steps"] as? [String] ?? []),
+                    contributor: (document.data()["contributor"] as! String),
+                    publisher: (document.data()["publisher"] as! String)
+                ))
             }
         }
     }

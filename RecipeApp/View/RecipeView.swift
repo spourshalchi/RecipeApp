@@ -29,11 +29,16 @@ struct RecipeView: View {
                     
                     //Bookmark
                     Button(action: {
-                        self.recipeBook.recipes.append(self.recipe)
+                        //Add only if not already in
+                        if let index = self.recipeBook.recipes.firstIndex(of: self.recipe) {
+                            self.recipeBook.recipes.remove(at: index)
+                        } else {
+                            self.recipeBook.recipes.append(self.recipe)
+                        }
                     }) {
                         HStack{
-                            Image(systemName: "book")
-                            Text("Save").fontWeight(.bold)
+                            Image(systemName: self.recipeBook.recipes.contains(recipe) ? "book.fill": "book")
+                            Text(self.recipeBook.recipes.contains(recipe) ? "Unsave" : "Save").fontWeight(.bold)
                         }
                         .padding(10)
                         .background(Color.black.opacity(0.5))

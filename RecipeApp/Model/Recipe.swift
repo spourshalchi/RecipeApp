@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct Recipe: Decodable, Identifiable {
+struct Recipe: Decodable, Identifiable, Equatable {
     let id = UUID()
     var recipeURLString: String
     var imageURLString: String
@@ -18,4 +18,8 @@ struct Recipe: Decodable, Identifiable {
     var steps:[String]
     var contributor: String
     var publisher: String
+    
+    static func ==(lhs: Recipe, rhs: Recipe) -> Bool {
+        return lhs.recipeURLString == rhs.recipeURLString
+    }
 }

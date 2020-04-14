@@ -75,6 +75,7 @@ struct WelcomeContent: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width:120)
+                .padding()
             
 //            Text("Welcome to Recipeasy")
 //                .font(.system(.headline, design: .serif))
