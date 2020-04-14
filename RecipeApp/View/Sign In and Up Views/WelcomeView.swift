@@ -71,19 +71,16 @@ struct WelcomeContent: View {
                 .frame(height: UIScreen.main.bounds.size.height * 0.6)
             
             //Logo
-            Image("mealBig")
-                .renderingMode(.template)
+            Image("R")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width:80)
-                .foregroundColor(Color("Black"))
-
-            //Text
-            Text("Welcome")
-                .font(.title)
-                .fontWeight(.medium)
-                .padding()
-
+                .frame(width:120)
+            
+//            Text("Welcome to Recipeasy")
+//                .font(.system(.headline, design: .serif))
+//                .frame(width: UIScreen.main.bounds.size.height)
+//                .padding(.bottom, 20)
+            
             //Sign Up
             Button(action: {
                 withAnimation(.easeIn(duration: 0.1)){
@@ -124,13 +121,11 @@ struct SignUpContent: View {
                 .foregroundColor(.clear)
                 .frame(height: UIScreen.main.bounds.size.height * 0.4)
             
-            //Logo
-            Image("mealBig")
-                .renderingMode(.template)
+             //Logo
+            Image("R")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width:80)
-                .foregroundColor(Color("Black"))
+                .frame(width:120)
 
             //Text
             Text("Choose a signup method")
@@ -183,7 +178,7 @@ struct SignUpContent: View {
             }
             
             //Agree text
-            Text("By continuing, you agree to Recip.io's Terms of Service and Privacy Policy")
+            Text("By continuing, you agree to Recipeasy's Terms of Service and Privacy Policy")
                 .font(.footnote)
                 .frame(maxWidth:buttonWidth)
                 .multilineTextAlignment(.center)

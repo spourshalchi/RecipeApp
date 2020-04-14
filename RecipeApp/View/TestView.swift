@@ -11,7 +11,12 @@ import SwiftUI
 struct TestView: View {
 
     var body: some View {
-        Text("Test")
+        VStack{
+            Image("Recipeasy")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+            Text("Hi")
+        }
     }
 }
 
