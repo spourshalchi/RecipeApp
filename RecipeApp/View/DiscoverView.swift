@@ -9,6 +9,7 @@
 import SwiftUI
 import FirebaseFirestore
 import struct Kingfisher.KFImage
+import QGrid
 
 struct DiscoverView: View {
     @State private var following = false
@@ -17,10 +18,11 @@ struct DiscoverView: View {
     @State var lastSnapshot: QueryDocumentSnapshot?
     @EnvironmentObject var recipeBook: RecipeBookViewModel
     @State var modalDisplayed = false
+
     
     var body: some View {
         
-        ScrollView{
+
             VStack {
                 //For you/following Buttons
                 HStack(){
@@ -57,72 +59,7 @@ struct DiscoverView: View {
                 
                 //Cards
                 if(loadedRecipes.count > 0){
-                    ForEach(loadedRecipes) { recipe in
-                        VStack{
-                            ZStack(alignment: .topTrailing){
-                                KFImage(recipe.imageURL)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: UIScreen.main.bounds.size.width * 0.9)
-                                    .clipped()
-                                
-//                                //Bookmark
-//                                Button(action: {
-//                                    self.recipeBook.recipes.append(recipe)
-//                                }) {
-//                                    Image(systemName: "bookmark.fill")
-//                                        .resizable()
-//                                        .aspectRatio(contentMode: .fit)
-//                                        .frame(width: 30)
-//                                        .foregroundColor(.red)
-//                                }
-//                                .offset(x: -20)
-//                                .buttonStyle(PlainButtonStyle())
-                            }
-                            
-                            Text(recipe.title)
-                                .font(.headline)
-                                .multilineTextAlignment(.center)
-                                .frame(width: UIScreen.main.bounds.size.width * 0.9)
-                                .padding(.bottom, 10)
-                        }
-                            .background(Color("White"))
-                            .clipped()
-                            .clipShape(RoundedRectangle(cornerRadius: 13, style: .continuous))
-                            .shadow(radius: 5)
-                            
-                            //Context menu
-                            .contextMenu {
-                                //Bookmark
-                                Button(action: {
-                                    //Add only if not already in
-                                    if let index = self.recipeBook.recipes.firstIndex(of: recipe) {
-                                        self.recipeBook.recipes.remove(at: index)
-                                    } else {
-                                        self.recipeBook.recipes.append(recipe)
-                                    }
-                                }) {
-                                    Text(self.recipeBook.recipes.contains(recipe) ? "Unsave from recipe book" : "Save to recipe book").multilineTextAlignment(.center)
-                                    Image(systemName: self.recipeBook.recipes.contains(recipe) ? "book.fill": "book")
-                                }
-                                
-//                                //Less like this
-//                                Button(action: {
-//                                  // copy the content to the paste board
-//                                }) {
-//                                    Text("Less like this")
-//                                    Image(systemName: "xmark")
-//                                }
-                                
-//                                //Share
-//                                Button(action: {
-//                                  // copy the content to the paste board
-//                                }) {
-//                                    Text("Share")
-//                                    Image(systemName: "square.and.arrow.up.fill")
-//                                }
-                            }
-                        }
+                    QGrid(self.loadedRecipes, columns: 1) { GridCell(recipe: $0) }
                 }
                 
                 Button(action:loadMoreRecieps){
@@ -130,7 +67,6 @@ struct DiscoverView: View {
                     .padding(.bottom, 15)
                 }
             }.frame(width: UIScreen.main.bounds.size.width)
-        }
         .onAppear {
             if(self.loadedRecipes.count == 0) {
                 self.loadFirstRecipes()
@@ -209,3 +145,55 @@ struct DiscoverView_Previews: PreviewProvider {
         DiscoverView()
     }
 }
+
+struct GridCell: View {
+    var recipe: Recipe
+    @State var modalDisplayed = false
+    @EnvironmentObject var recipeBook: RecipeBookViewModel
+
+    var body: some View {
+        VStack{
+            KFImage(recipe.imageURL)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: UIScreen.main.bounds.size.width * 0.9)
+                .clipped()
+
+            
+            Text(recipe.title)
+                .font(.headline)
+                .multilineTextAlignment(.center)
+                .frame(width: UIScreen.main.bounds.size.width * 0.9)
+                .padding(.bottom, 10)
+        }
+        .background(Color("White"))
+        .clipped()
+        .clipShape(RoundedRectangle(cornerRadius: 13, style: .continuous))
+        .shadow(radius: 5)
+            
+        //Recipe on tap
+        .onTapGesture {
+            self.modalDisplayed = true
+        }.sheet(isPresented: self.$modalDisplayed) {
+            RecipeView(recipe:self.recipe, onDismiss: {self.modalDisplayed = false}).environmentObject(self.recipeBook)
+        }
+        
+        //Context menu
+        .contextMenu {
+            //Bookmark
+            Button(action: {
+                //Add only if not already in
+                if let index = self.recipeBook.recipes.firstIndex(of: self.recipe) {
+                    self.recipeBook.recipes.remove(at: index)
+                } else {
+                    self.recipeBook.recipes.append(self.recipe)
+                }
+            }) {
+                Text(self.recipeBook.recipes.contains(recipe) ? "Unsave from recipe book" : "Save to recipe book").multilineTextAlignment(.center)
+                Image(systemName: self.recipeBook.recipes.contains(recipe) ? "book.fill": "book")
+            }
+        }
+    }
+}
+
+
