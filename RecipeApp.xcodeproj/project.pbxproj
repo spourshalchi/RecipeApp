@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -30,7 +30,6 @@
 		66EEA7652426C22E00602889 /* ShoppingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EEA7642426C22E00602889 /* ShoppingListView.swift */; };
 		66EEA76A2426E98400602889 /* RecipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EEA7692426E98400602889 /* RecipeViewModel.swift */; };
 		66EEA76C242701CA00602889 /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EEA76B242701CA00602889 /* RecipeView.swift */; };
-		66F2F4332446B0A300104A94 /* QGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 66F2F4322446B0A300104A94 /* QGrid */; };
 		6FA625C56BF60AB4B0D50187 /* Pods_RecipeApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8342521D0821DD70018EBA5 /* Pods_RecipeApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -70,7 +69,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66F2F4332446B0A300104A94 /* QGrid in Frameworks */,
 				6FA625C56BF60AB4B0D50187 /* Pods_RecipeApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -212,7 +210,6 @@
 			);
 			name = RecipeApp;
 			packageProductDependencies = (
-				66F2F4322446B0A300104A94 /* QGrid */,
 			);
 			productName = RecipeApp;
 			productReference = 6676D0332425B72100E13D55 /* RecipeApp.app */;
@@ -243,7 +240,6 @@
 			);
 			mainGroup = 6676D02A2425B72100E13D55;
 			packageReferences = (
-				66F2F4312446B0A300104A94 /* XCRemoteSwiftPackageReference "QGrid" */,
 			);
 			productRefGroup = 6676D0342425B72100E13D55 /* Products */;
 			projectDirPath = "";
@@ -546,25 +542,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		66F2F4312446B0A300104A94 /* XCRemoteSwiftPackageReference "QGrid" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Q-Mobile/QGrid";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.4;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		66F2F4322446B0A300104A94 /* QGrid */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 66F2F4312446B0A300104A94 /* XCRemoteSwiftPackageReference "QGrid" */;
-			productName = QGrid;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6676D02B2425B72100E13D55 /* Project object */;
 }

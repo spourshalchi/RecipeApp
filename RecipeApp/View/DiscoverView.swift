@@ -9,7 +9,6 @@
 import SwiftUI
 import FirebaseFirestore
 import struct Kingfisher.KFImage
-import QGrid
 
 struct DiscoverView: View {
     @State private var following = false
@@ -17,12 +16,9 @@ struct DiscoverView: View {
     let db = Firestore.firestore()
     @State var lastSnapshot: QueryDocumentSnapshot?
     @EnvironmentObject var recipeBook: RecipeBookViewModel
-    @State var modalDisplayed = false
-
     
     var body: some View {
-        
-
+        ScrollView {
             VStack {
                 //For you/following Buttons
                 HStack(){
@@ -59,17 +55,22 @@ struct DiscoverView: View {
                 
                 //Cards
                 if(loadedRecipes.count > 0){
-                    QGrid(self.loadedRecipes, columns: 1) { GridCell(recipe: $0) }
+                    ForEach(loadedRecipes) { recipe in
+                        Card(recipe: recipe)
+                    }
                 }
                 
+                //Load more recipes button
                 Button(action:loadMoreRecieps){
                     Image(systemName:"arrow.down.circle.fill")
                     .padding(.bottom, 15)
                 }
-            }.frame(width: UIScreen.main.bounds.size.width)
-        .onAppear {
-            if(self.loadedRecipes.count == 0) {
-                self.loadFirstRecipes()
+            }
+            .frame(width: UIScreen.main.bounds.size.width)
+            .onAppear {
+                if(self.loadedRecipes.count == 0) {
+                    self.loadFirstRecipes()
+                }
             }
         }
     }
@@ -146,7 +147,7 @@ struct DiscoverView_Previews: PreviewProvider {
     }
 }
 
-struct GridCell: View {
+struct Card: View {
     var recipe: Recipe
     @State var modalDisplayed = false
     @EnvironmentObject var recipeBook: RecipeBookViewModel
