@@ -10,17 +10,24 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var userSession: SessionStore
+    @State var loaded: Bool = false
     
     func getUser() {
         userSession.listen()
+        loaded = true
     }
     
     var recipeBook = RecipeBookViewModel()
 
     var body: some View {
         Group{
-            //If signed in
-            if (userSession.currentUser != nil){
+            //Loading screen while loading
+            if (userSession.currentUser != nil && !loaded){
+                Text("").hidden()
+            }
+                
+            //If signed in and screen loaded
+            else if (userSession.currentUser != nil && loaded){
                 TabView{
                     //Discover view
                     DiscoverView().tabItem({
