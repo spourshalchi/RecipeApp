@@ -10,6 +10,34 @@ import SwiftUI
 
 
 class RecipeBookViewModel: ObservableObject {
-    @Published var recipes: [Recipe] = []
+    @Published var recipes: [Recipe] {
+        didSet {
+            for rec in recipes {print(rec.title)}
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(recipes) {
+                UserDefaults.standard.set(encoded, forKey: "RecipeBook")
+            } else {
+                print("ERROR: Recipe wasn't saved to UserDefaults")
+            }
+        }
+    }
+    
+    init() {
+        if let recipes = UserDefaults.standard.data(forKey: "RecipeBook")
+        {
+            let decoder = JSONDecoder()
+            
+            if let decoded = try?
+                decoder.decode([Recipe].self,from:recipes) {
+                self.recipes = decoded
+                return
+            }
+            print("Couldnt decode data from User Defaults")
+        }
+        print("Didn't load any recipes from User Defaults")
+        
+        //If no saved recipes yet
+        self.recipes = []
+    }
 }
 

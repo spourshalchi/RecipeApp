@@ -187,8 +187,15 @@ struct Card: View {
                 if let index = self.recipeBook.recipes.firstIndex(of: self.recipe) {
                     self.recipeBook.recipes.remove(at: index)
                 } else {
+                    //Add recipe to recipe book
                     self.recipeBook.recipes.append(self.recipe)
                 }
+                //THIS CODE IS NEEDED BECAUSE OF A BUG IN SWIFT 5.2 AND SHOULD BE RESOLVED IN THE NEXT VERSION https://bugs.swift.org/browse/SR-12089
+                var newRecipes = [Recipe]() //new temporary array
+                for recipeInBook in self.recipeBook.recipes {
+                    newRecipes.append(recipeInBook) //copy class array to temp array
+                }
+                self.recipeBook.recipes = newRecipes
             }) {
                 Text(self.recipeBook.recipes.contains(recipe) ? "Unsave from recipe book" : "Save to recipe book").multilineTextAlignment(.center)
                 Image(systemName: self.recipeBook.recipes.contains(recipe) ? "book.fill": "book")

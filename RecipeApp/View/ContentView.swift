@@ -11,13 +11,13 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var userSession: SessionStore
     @State var loaded: Bool = false
+    @EnvironmentObject var recipeBook: RecipeBookViewModel
+
     
     func getUser() {
         userSession.listen()
         loaded = true
     }
-    
-    var recipeBook = RecipeBookViewModel()
 
     var body: some View {
         Group{

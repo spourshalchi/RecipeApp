@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct Recipe: Decodable, Identifiable, Equatable {
+struct Recipe: Identifiable, Codable, Equatable {
     let id = UUID()
     var recipeURLString: String
     var imageURLString: String
