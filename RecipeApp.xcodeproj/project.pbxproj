@@ -14,6 +14,7 @@
 		6611F5862439698E00807EAC /* GoogleSignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6611F5852439698E00807EAC /* GoogleSignInView.swift */; };
 		661FC2CE2445530200B6FE6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 661FC2CD2445530200B6FE6C /* Assets.xcassets */; };
 		66405115244931C2000589BA /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66405114244931C2000589BA /* ActivityIndicator.swift */; };
+		6640511B24496160000589BA /* ListTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6640511A24496160000589BA /* ListTest.swift */; };
 		6655E37F24421AFF00565B3C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6655E37E24421AFF00565B3C /* SettingsView.swift */; };
 		6655E38124423BC000565B3C /* UserSettingsSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6655E38024423BC000565B3C /* UserSettingsSession.swift */; };
 		6676D0372425B72100E13D55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676D0362425B72100E13D55 /* AppDelegate.swift */; };
@@ -42,6 +43,7 @@
 		6611F5852439698E00807EAC /* GoogleSignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInView.swift; sourceTree = "<group>"; };
 		661FC2CD2445530200B6FE6C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		66405114244931C2000589BA /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		6640511A24496160000589BA /* ListTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTest.swift; sourceTree = "<group>"; };
 		6655E37E24421AFF00565B3C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		6655E38024423BC000565B3C /* UserSettingsSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsSession.swift; sourceTree = "<group>"; };
 		6676D0332425B72100E13D55 /* RecipeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -182,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				6676D03D2425B72100E13D55 /* ContentView.swift */,
+				6640511A24496160000589BA /* ListTest.swift */,
 				66EEA7622426C21500602889 /* ProfileView.swift */,
 				6655E37E24421AFF00565B3C /* SettingsView.swift */,
 				66EEA7642426C22E00602889 /* ShoppingListView.swift */,
@@ -349,6 +352,7 @@
 				6611F5822439678800807EAC /* WelcomeView.swift in Sources */,
 				66405115244931C2000589BA /* ActivityIndicator.swift in Sources */,
 				66EEA76A2426E98400602889 /* RecipeViewModel.swift in Sources */,
+				6640511B24496160000589BA /* ListTest.swift in Sources */,
 				66026FB3243A41F200D53289 /* EmailSignUpView.swift in Sources */,
 				6655E38124423BC000565B3C /* UserSettingsSession.swift in Sources */,
 			);

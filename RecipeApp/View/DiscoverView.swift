@@ -18,58 +18,60 @@ struct DiscoverView: View {
     @EnvironmentObject var recipeBook: RecipeBookViewModel
     
     var body: some View {
-        ScrollView {
-            VStack {
-                //For you/following Buttons
-                HStack(){
-                    //For you button
-                    Button(action: {
-                        self.following = false
-                    }) {
-                        HStack {
-                            Text("For you")
-                                .fontWeight(.semibold)
-                                .font(.body)
-                        }
-                        .padding()
-                        .foregroundColor(following ? Color("Black") : Color("White"))
-                        .background(following ? Color("White") : Color("Black"))
-                        .cornerRadius(40)
+        VStack{
+            //For you/following Buttons
+            HStack(){
+                //For you button
+                Button(action: {
+                    self.following = false
+                }) {
+                    HStack {
+                        Text("For you")
+                            .fontWeight(.semibold)
+                            .font(.body)
                     }
-                    
-                    //Following button
-                    Button(action: {
-                        self.following = true
-                    }) {
-                        HStack {
-                            Text("Following")
-                                .fontWeight(.semibold)
-                                .font(.body)
-                        }
-                        .padding()
-                        .foregroundColor(following ? Color("White") : Color("Black"))
-                        .background(following ? Color("Black") : Color("White"))
-                        .cornerRadius(40)
-                    }
+                    .padding(10)
+                    .foregroundColor(following ? Color("Black") : Color("White"))
+                    .background(following ? Color("White") : Color("Black"))
+                    .cornerRadius(40)
                 }
                 
-                //Cards
-                if(loadedRecipes.count > 0){
-                    ForEach(loadedRecipes) { recipe in
-                        Card(recipe: recipe)
+                //Following button
+                Button(action: {
+                    self.following = true
+                }) {
+                    HStack {
+                        Text("Following")
+                            .fontWeight(.semibold)
+                            .font(.body)
                     }
-                }
-                
-                //Load more recipes button
-                Button(action:loadMoreRecieps){
-                    Image(systemName:"arrow.down.circle.fill")
-                        .padding(.bottom, 15)
+                    .padding(10)
+                    .foregroundColor(following ? Color("White") : Color("Black"))
+                    .background(following ? Color("Black") : Color("White"))
+                    .cornerRadius(40)
                 }
             }
-            .frame(width: UIScreen.main.bounds.size.width)
-            .onAppear {
-                if(self.loadedRecipes.count == 0) {
-                    self.loadFirstRecipes()
+            
+            ScrollView {
+                VStack {
+                    //Cards
+                    if(loadedRecipes.count > 0){
+                        ForEach(loadedRecipes) { recipe in
+                            Card(recipe: recipe)
+                        }
+                    }
+                    
+                    //Load more recipes button
+                    Button(action:loadMoreRecieps){
+                        Image(systemName:"arrow.down.circle.fill")
+                            .padding(.bottom, 15)
+                    }
+                }
+                .frame(width: UIScreen.main.bounds.size.width)
+                .onAppear {
+                    if(self.loadedRecipes.count == 0) {
+                        self.loadFirstRecipes()
+                    }
                 }
             }
         }
