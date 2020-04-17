@@ -63,7 +63,7 @@ struct DiscoverView: View {
                 //Load more recipes button
                 Button(action:loadMoreRecieps){
                     Image(systemName:"arrow.down.circle.fill")
-                    .padding(.bottom, 15)
+                        .padding(.bottom, 15)
                 }
             }
             .frame(width: UIScreen.main.bounds.size.width)
@@ -197,7 +197,7 @@ struct Card: View {
                 }
                 self.recipeBook.recipes = newRecipes
             }) {
-                Text(self.recipeBook.recipes.contains(recipe) ? "Unsave from recipe book" : "Save to recipe book").multilineTextAlignment(.center)
+                Text(self.recipeBook.recipes.contains(recipe) ? "Unsave" : "Save").multilineTextAlignment(.center)
                 Image(systemName: self.recipeBook.recipes.contains(recipe) ? "book.fill": "book")
             }
         }
