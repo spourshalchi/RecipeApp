@@ -12,7 +12,6 @@ struct ContentView: View {
     @EnvironmentObject var userSession: SessionStore
     @State var loaded: Bool = false
     @EnvironmentObject var recipeBook: RecipeBookViewModel
-
     
     func getUser() {
         userSession.listen()
@@ -22,12 +21,12 @@ struct ContentView: View {
     var body: some View {
         Group{
             //Loading screen while loading
-            if (userSession.currentUser != nil && !loaded){
-                Text("").hidden()
+            if (userSession.currentUser == nil && userSession.status){
+                ActivityIndicator(shouldAnimate: true)
             }
                 
             //If signed in and screen loaded
-            else if (userSession.currentUser != nil && loaded){
+            else if (userSession.currentUser != nil){
                 TabView{
                     //Discover view
                     DiscoverView().tabItem({

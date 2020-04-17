@@ -68,6 +68,7 @@ struct SettingsView: View {
             Button(action: {
                 try! Auth.auth().signOut()
                 GIDSignIn.sharedInstance()?.signOut()
+                self.userSession.status = false
                 UserDefaults.standard.set(false, forKey: "status") //Saves the login status to persistent memory
                 
             }) {

@@ -14,6 +14,7 @@ import FirebaseFirestore
 
 class SessionStore: ObservableObject {
     @Published var currentUser: User?
+    @Published var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
     var handle: AuthStateDidChangeListenerHandle?
     
     func listen() {

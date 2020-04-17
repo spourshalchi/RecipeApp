@@ -19,21 +19,7 @@ struct LoginView: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 10){
-            
-            //X, log in row
-            ZStack{
-                HStack {
-                    Button(action: {
-                        self.showModal.toggle()
-                    }) {
-                        Image(systemName:"xmark").padding(10)
-                    }
-                    Spacer()
-                }
-                
-                Text("Log in")
-            }
-            
+                            
             //Login in with Facebook
             Button(action: {
                 
@@ -74,7 +60,7 @@ struct LoginView: View {
                 .clipShape(Capsule())
             }
             
-            Text("OR")
+            Spacer()
             
             Group{
                 //Email
