@@ -48,7 +48,7 @@ struct ShoppingListView: View {
 
                     }) {
                         Image(systemName: "square.and.arrow.up")
-                    }
+                    }.padding()
                 }
                 
                 if(self.sortMethod == "Recipe"){
@@ -101,20 +101,13 @@ struct SortedByRecipe : View {
                             
                             if(item.show) {
                                 ForEach(item.recipe.ingredients,  id: \.self){ ing in
-                                    ingredientRow(ingredient: ing, index: item.recipe.ingredients.firstIndex(of: ing)!, parentRecipe:item)
-                                }//.onDelete { self.delete(at: $0, in: self.shoppingList.shoppingList.firstIndex(of: item)!) }
+                                    ingredientRow(ingredient: ing, parentRecipe:item)
+                                }
                             }
                         }
-                    }//.onDelete(perform: deleteRec)
+                    }.onDelete(perform: deleteRec)
                 }
         }
-    }
-    
-    var disableDelete: Bool {
-        if let mode = editMode?.wrappedValue, mode == .active {
-            return true
-        }
-        return false
     }
     
     func deleteRec(at offsets: IndexSet) {
@@ -131,18 +124,11 @@ struct SortedByAlphabetical : View {
             List {
                 ForEach(shoppingList.shoppingList) { item in
                     ForEach(item.recipe.ingredients,  id: \.self){ ing in
-                        ingredientRow(ingredient: ing, index: self.shoppingList.shoppingList.firstIndex(of: item)!, parentRecipe:item)
-                    }//.onDelete { self.delete(at: $0, in: self.shoppingList.shoppingList.firstIndex(of: item)!) }
+                        ingredientRow(ingredient: ing, parentRecipe:item)
+                    }
                 }
             }
         }
-    }
-    
-    var disableDelete: Bool {
-        if let mode = editMode?.wrappedValue, mode == .active {
-            return true
-        }
-        return false
     }
 }
 
@@ -152,45 +138,55 @@ struct ingredientRow : View {
     @State var draggedToMax: Bool = false
     @State var draggedToMin: Bool = false
     @State var striked: Bool = false
-    @State var index: Int
     @EnvironmentObject var shoppingList: ShoppingListViewModel
     @State var parentRecipe: ShoppingListItem
     
     var body: some View {
-        HStack{
-            Text(ingredient)
-                .strikethrough(self.striked)
-                .padding()
-                .offset(x: self.dragAmount.width)
-                .contentShape(Rectangle())
-        }
-
+        HStack(){
+            //Image(systemName: "checkmark")
+            HStack{
+                Text(ingredient)
+                    .strikethrough(self.striked)
+                    .multilineTextAlignment(.leading)
+                    .frame(alignment: .leading)
+                    .padding()
+                    .contentShape(Rectangle())
+            }.frame(width: UIScreen.main.bounds.size.width, alignment: .leading)
+            Image(systemName: "xmark")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .foregroundColor(.red)
+                .frame(width:30)
+        }.offset(x: self.dragAmount.width)
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+        .contentShape(Rectangle())
         .gesture(
-            DragGesture()
+            DragGesture(minimumDistance: 20)
                 .onChanged {
-                    if ($0.translation.width < 20 && $0.translation.width > -60) {
+                    if ($0.translation.width < 60 && $0.translation.width > -100) {
                         self.dragAmount = $0.translation
                         self.draggedToMax = false
+                        self.draggedToMin = false
                     }
                         
                     //Delete
-                    else if ($0.translation.width < -60 && !self.draggedToMin) {
+                    else if ($0.translation.width < -100 && !self.draggedToMin) {
                         self.simpleSuccess()
                         self.draggedToMin = true
                     }
                         
-                    //Strike
-                    else if ($0.translation.width < 80 && $0.translation.width > -60) {
+                    //Check off
+                    else if ($0.translation.width < 60 && $0.translation.width > -100) {
                         self.dragAmount = $0.translation
                     }
-                    else if ($0.translation.width > 80 && !self.draggedToMax) {
+                    else if ($0.translation.width > 60 && !self.draggedToMax) {
                         self.simpleSuccess()
                         self.draggedToMax = true
+                        self.striked.toggle()
                     }
                 }
                 .onEnded { _ in
-                    if(self.draggedToMax){ self.striked.toggle() }
-                    if(self.draggedToMin){ self.delete(recipe:self.parentRecipe, index: self.index)}
+                    if(self.draggedToMin){ self.delete(recipe:self.parentRecipe, ingredient: self.ingredient)}
                     self.dragAmount = .zero
                     self.draggedToMax = false
                     self.draggedToMin = false
@@ -203,8 +199,9 @@ struct ingredientRow : View {
         generator.notificationOccurred(.warning)
     }
     
-    func delete(recipe: ShoppingListItem, index: Int) {
-        print(index)
-        self.shoppingList.shoppingList[self.shoppingList.shoppingList.firstIndex(of: recipe)!].recipe.ingredients.remove(at: index)
+    func delete(recipe: ShoppingListItem, ingredient: String) {
+        let recIndex = self.shoppingList.shoppingList.firstIndex(of: recipe)!
+        let ingIndex = self.shoppingList.shoppingList[recIndex].recipe.ingredients.firstIndex(of: ingredient)!
+        self.shoppingList.shoppingList[recIndex].recipe.ingredients.remove(at: ingIndex)
     }
 }
