@@ -2,40 +2,69 @@
 //  ShoppingListView.swift
 //  RecipeApp
 //
-//  Created by Scott Pourshalchi on 3/21/20.
+//  Created by Scott Pourshalchi on 4/17/20.
 //  Copyright © 2020 Scott Pourshalchi. All rights reserved.
 //
 
 import SwiftUI
+import struct Kingfisher.KFImage
 
 struct ShoppingListView: View {
-    @State var hasShoppingList = false
-    @EnvironmentObject var recipeBook: RecipeBookViewModel
-
+    @EnvironmentObject var shoppingList: ShoppingListViewModel
+    
+    init() {
+        UITableView.appearance().separatorColor = .clear
+        UITableView.appearance().separatorStyle = .none
+      }
+    
     var body: some View {
-        VStack{
-            Text("Tap to create a new shopping list")
-                .font(.subheadline)
-            Button(action: {
-                self.hasShoppingList.toggle()
-            }) {
-                Image(systemName: "square.and.pencil")
-            }.sheet(isPresented: $hasShoppingList) {
-                //CardGridFromRecipes().environmentObject(self.recipeBook)
-                Text("To Do: implement pick recipes")
+            NavigationView {
+                VStack {
+                    List {
+                        ForEach(shoppingList.shoppingList) { item in
+                            Group{
+                                HStack(){
+                                    //Image
+                                    KFImage(item.recipe.imageURL)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 40, height: 40)
+                                        .clipped()
+                                    
+                                    //Text
+                                    Text(item.recipe.title)
+                                    Spacer()
+                                }.padding(.leading,5)
+                                .onTapGesture {
+                                    self.shoppingList.shoppingList[self.shoppingList.shoppingList.firstIndex(of: item)!].show.toggle()
+                                }
+                                
+                                if(item.show) {
+                                    ForEach(item.recipe.ingredients,  id: \.self){ ing in
+                                        Text(ing)
+                                    }.onDelete { self.delete(at: $0, in: self.shoppingList.shoppingList.firstIndex(of: item)!) }
+                                }
+                            }
+                        }.onDelete(perform: deleteRec)
+                    }
             }
-        }
+                .navigationBarTitle(Text("Shopping List"), displayMode: .inline)
+                .navigationBarItems(trailing: EditButton())
+            }
+    }
+    
+    
+    func deleteRec(at offsets: IndexSet) {
+        self.shoppingList.shoppingList.remove(atOffsets: offsets)
+    }
+    
+    func delete(at offsets: IndexSet, in shopItem: Int) {
+        self.shoppingList.shoppingList[shopItem].recipe.ingredients.remove(atOffsets: offsets)
     }
 }
 
 struct ShoppingListView_Previews: PreviewProvider {
     static var previews: some View {
         ShoppingListView()
-    }
-}
-
-struct PickRecipesView: View {
-    var body: some View {
-        Text("Pick recipes from recipe book here")
     }
 }

@@ -11,6 +11,7 @@ import struct Kingfisher.KFImage
 
 struct RecipeBookView: View {
     @EnvironmentObject var recipeBook: RecipeBookViewModel
+    @EnvironmentObject var shoppingList: ShoppingListViewModel
 
     
     init() {

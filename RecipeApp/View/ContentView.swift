@@ -12,6 +12,8 @@ struct ContentView: View {
     @EnvironmentObject var userSession: SessionStore
     @State var loaded: Bool = false
     @EnvironmentObject var recipeBook: RecipeBookViewModel
+    @EnvironmentObject var shoppingList: ShoppingListViewModel
+
     
     func getUser() {
         userSession.listen()
@@ -56,6 +58,7 @@ struct ContentView: View {
                     }).tag(1)
                 }.accentColor(Color.red)
                 .environmentObject(recipeBook)
+                .environmentObject(shoppingList)
             }
             
             else{

@@ -29,6 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.rootViewController = UIHostingController(rootView: contentView
                 .environmentObject(SessionStore())
                 .environmentObject(userSettingsSession)
+                .environmentObject(ShoppingListViewModel())
                 .environmentObject(RecipeBookViewModel()))
             self.window = window
             window.makeKeyAndVisible()

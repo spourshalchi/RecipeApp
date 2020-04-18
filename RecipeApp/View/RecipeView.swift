@@ -12,6 +12,7 @@ import struct Kingfisher.KFImage
 struct RecipeView: View {
     //Recipe view model
     @EnvironmentObject var recipeBook: RecipeBookViewModel
+    @EnvironmentObject var shoppingList: ShoppingListViewModel
     let textWidth = UIScreen.main.bounds.size.width * 0.95
     
     let recipe: Recipe
@@ -133,7 +134,7 @@ struct RecipeView: View {
                     
                     //Add recipe ingredients to grocery list
                     Button(action:{
-                        //
+                        self.shoppingList.shoppingList.append(ShoppingListItem(recipe: self.recipe))
                     }) {
                         Text("Add to Your Shopping List")
                             .fontWeight(.bold)

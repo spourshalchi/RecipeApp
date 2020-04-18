@@ -12,7 +12,6 @@ import SwiftUI
 class RecipeBookViewModel: ObservableObject {
     @Published var recipes: [Recipe] {
         didSet {
-            for rec in recipes {print(rec.title)}
             let encoder = JSONEncoder()
             if let encoded = try? encoder.encode(recipes) {
                 UserDefaults.standard.set(encoded, forKey: "RecipeBook")

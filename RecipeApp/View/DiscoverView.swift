@@ -16,7 +16,8 @@ struct DiscoverView: View {
     let db = Firestore.firestore()
     @State var lastSnapshot: QueryDocumentSnapshot?
     @EnvironmentObject var recipeBook: RecipeBookViewModel
-    
+    @EnvironmentObject var shoppingList: ShoppingListViewModel
+
     var body: some View {
         VStack{
             //For you/following Buttons
@@ -153,6 +154,8 @@ struct Card: View {
     var recipe: Recipe
     @State var modalDisplayed = false
     @EnvironmentObject var recipeBook: RecipeBookViewModel
+    @EnvironmentObject var shoppingList: ShoppingListViewModel
+
 
     var body: some View {
         VStack{
@@ -178,7 +181,7 @@ struct Card: View {
         .onTapGesture {
             self.modalDisplayed = true
         }.sheet(isPresented: self.$modalDisplayed) {
-            RecipeView(recipe:self.recipe, onDismiss: {self.modalDisplayed = false}).environmentObject(self.recipeBook)
+            RecipeView(recipe:self.recipe, onDismiss: {self.modalDisplayed = false}).environmentObject(self.recipeBook).environmentObject(self.shoppingList)
         }
         
         //Context menu
