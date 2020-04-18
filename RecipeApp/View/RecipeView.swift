@@ -134,7 +134,12 @@ struct RecipeView: View {
                     
                     //Add recipe ingredients to grocery list
                     Button(action:{
-                        self.shoppingList.shoppingList.append(ShoppingListItem(recipe: self.recipe))
+                        
+                        //Add only if not already in
+                        if self.shoppingList.shoppingList.firstIndex(of: ShoppingListItem(recipe: self.recipe)) == nil {
+                            //Add to shopping list
+                            self.shoppingList.shoppingList.append(ShoppingListItem(recipe: self.recipe))
+                        }
                     }) {
                         Text("Add to Your Shopping List")
                             .fontWeight(.bold)

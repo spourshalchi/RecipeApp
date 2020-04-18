@@ -185,12 +185,12 @@
 			isa = PBXGroup;
 			children = (
 				6676D03D2425B72100E13D55 /* ContentView.swift */,
+				6676D0512425B7A800E13D55 /* DiscoverView.swift */,
+				66EEA76B242701CA00602889 /* RecipeView.swift */,
+				6676D0532425B7B600E13D55 /* RecipeBookView.swift */,
 				6640511A24496160000589BA /* ShoppingListView.swift */,
 				66EEA7622426C21500602889 /* ProfileView.swift */,
 				6655E37E24421AFF00565B3C /* SettingsView.swift */,
-				6676D0512425B7A800E13D55 /* DiscoverView.swift */,
-				6676D0532425B7B600E13D55 /* RecipeBookView.swift */,
-				66EEA76B242701CA00602889 /* RecipeView.swift */,
 				66026FAF243A418800D53289 /* Sign In and Up Views */,
 			);
 			path = View;
