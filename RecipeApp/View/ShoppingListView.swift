@@ -13,6 +13,9 @@ struct ShoppingListView: View {
     @EnvironmentObject var shoppingList: ShoppingListViewModel
     @State var sortExpand: Bool = false
     @State var sortMethod: String = "Recipe"
+    @State var showShareSheet: Bool = false
+    @State public var sharedItems : [Any] = []
+
     
     init() {
         UITableView.appearance().separatorColor = .clear
@@ -45,10 +48,16 @@ struct ShoppingListView: View {
                     
                     //Share
                     Button(action: {
-
+                        for rec in self.shoppingList.shoppingList {
+                            for ing in rec.recipe.ingredients {
+                                self.sharedItems.append(ing)
+                            }
+                        }
+                        self.showShareSheet = true
                     }) {
-                        Image(systemName: "square.and.arrow.up")
+                        Image(systemName:  "square.and.arrow.up")
                     }.padding()
+                    .disabled(self.shoppingList.shoppingList.isEmpty)
                 }
                 
                 if(self.sortMethod == "Recipe"){
@@ -59,6 +68,8 @@ struct ShoppingListView: View {
                 } else {
                     SortedByRecipe()
                 }
+            }.sheet(isPresented: $showShareSheet) {
+                ShareSheet(activityItems: self.sharedItems)
             }
     }
 }
@@ -203,5 +214,27 @@ struct ingredientRow : View {
         let recIndex = self.shoppingList.shoppingList.firstIndex(of: recipe)!
         let ingIndex = self.shoppingList.shoppingList[recIndex].recipe.ingredients.firstIndex(of: ingredient)!
         self.shoppingList.shoppingList[recIndex].recipe.ingredients.remove(at: ingIndex)
+    }
+}
+
+struct ShareSheet: UIViewControllerRepresentable {
+    typealias Callback = (_ activityType: UIActivity.ActivityType?, _ completed: Bool, _ returnedItems: [Any]?, _ error: Error?) -> Void
+
+    let activityItems: [Any]
+    let applicationActivities: [UIActivity]? = nil
+    let excludedActivityTypes: [UIActivity.ActivityType]? = nil
+    let callback: Callback? = nil
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        let controller = UIActivityViewController(
+            activityItems: activityItems,
+            applicationActivities: applicationActivities)
+        controller.excludedActivityTypes = excludedActivityTypes
+        controller.completionWithItemsHandler = callback
+        return controller
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
+        // nothing to do here
     }
 }
