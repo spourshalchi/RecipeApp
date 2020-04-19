@@ -6,7 +6,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 
 #Read file of recipe links
-f = open('test.txt', 'r')
+f = open('recipeLinks.txt', 'r')
 recipeLinks = f.readlines()
 f.close()
 
@@ -41,22 +41,36 @@ for url in recipeLinks:
 
     #Find ingredients
     ingredients = soup.findAll("div", class_="ingredients__text")
-    ingredientsStrings = [x.string for x in ingredients]
-    #print(ingredientsStrings)
+    # ingredientsStrings = [x.string for x in ingredients]
+    ingredientStrings = []
+    for x in ingredients:
+        if(x.string == None):
+            ingredientStrings.append(x.contents[0].string + x.contents[1].string)
+        else:
+            ingredientStrings.append(x.string)
+    # print(ingredientStrings)
 
     #Find steps
     steps = soup.findAll("li", class_="step")
     stepsStrings = [x.contents[0].contents[0].get_text() for x in steps]
     #print(stepsStrings)
 
+    #Datachacks
+
+    assert(title != None)
+    assert(pictureURL != None)
+    assert(contributor != None)
+    assert(any(x is None for x in ingredientStrings)==False)
+    assert(any(x is None for x in stepsStrings)==False)
+
+
     #Store to database
-    #new_recipe_ref = db.collection(u'recipes').document()
     new_recipe_ref = db.collection(u'recipes').document(title)
     new_recipe_ref.set({
         u'recipeURLString': url,
         u'imageURLString': pictureURL, 
         u'steps': stepsStrings, 
-        u'ingredients': ingredientsStrings, 
+        u'ingredients': ingredientStrings, 
         u'title': title,
         u'contributor': contributor,
         u'publisher': "Bon Appetit"
