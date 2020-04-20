@@ -163,3 +163,4 @@ def addBARecipesToDB():
 if __name__ == "__main__":
     # getBARecipeLinks()
     addBARecipesToDB()
+    
