@@ -102,17 +102,21 @@ struct RecipeView: View {
                             Image(systemName: "checkmark.circle").foregroundColor(.gray)
                         }.padding()
                         Spacer()
-                        HStack{
-                            Text("50")
+                        if(self.recipe.numRatings != 0) {
+                            HStack{
+                                Text("\(self.recipe.numRatings)")
+                                    .foregroundColor(Color("Black"))
+                                    .font(.footnote)
+                                    .fontWeight(.bold)
+                                StarRating(rating: self.recipe.avgRating)
+                            }.padding()
+                        } else {
+                            Text("No ratings yet")
                                 .foregroundColor(.gray)
                                 .font(.footnote)
                                 .fontWeight(.bold)
-                            Image(systemName: "star.fill").foregroundColor(.gray)
-                            Image(systemName: "star.fill").foregroundColor(.gray)
-                            Image(systemName: "star.fill").foregroundColor(.gray)
-                            Image(systemName: "star.fill").foregroundColor(.gray)
-                            Image(systemName: "star.lefthalf.fill").foregroundColor(.gray)
-                        }.padding()
+                                .padding()
+                        }
                     }
                 }
 
@@ -182,19 +186,28 @@ struct RecipeView: View {
     }
 }
 
-struct RecipeView_Previews: PreviewProvider {
+struct StarRating : View {
+    @State var rating : Float
+    
+    var body : some View {
+        HStack{
+            ForEach(1 ... Int(floor(self.rating)), id: \.self) { number in
+                Image(systemName: "star.fill").foregroundColor(Color("Gold"))
+            }
+            //0.5
+            if(rating-floor(self.rating) > 0.25 && rating-floor(self.rating) < 0.75) {
+                Image(systemName: "star.lefthalf.fill").foregroundColor(Color("Gold"))
+            }
+            //Round up
+            else if(rating-floor(self.rating) >= 0.75 ) {
+                Image(systemName: "star.fill").foregroundColor(Color("Gold"))
+            }
+        }
+    }
+}
+
+struct StarRating_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeView(recipe: Recipe(
-            recipeURLString:"https://www.bonappetit.com/recipe/charred-leeks-with-honey-and-vinegar" ,
-            imageURLString:"https://assets.bonappetit.com/photos/5e6ac0e70847910008100987/3:2/w_5120,c_limit/BBaking_WEEK6_Biscuts_2.jpg",
-            title:"Ramen Noodles With Spring Onions and Garlic Crisp",
-            imageURL:URL(string:"https://assets.bonappetit.com/photos/5e5e818d58c694000852fc48/16:9/w_5120,c_limit/Alliums-Charred-Leeks-Honey-and-Vinegar.jpg")!,
-            ingredients:["ingredint"],
-            steps:["step"],
-            contributor: "Molly Baz",
-            publisher: "Bon Apettit",
-            timeToMake: "",
-            yield:"1 serving"
-        ), onDismiss:{})
+        StarRating(rating: 3.3)
     }
 }

@@ -144,7 +144,9 @@ def addBARecipesToDB():
             u'publisher': "Bon Appetit",
             'created': firestore.firestore.SERVER_TIMESTAMP,
             u'yieldText': yieldText,
-            u'timeToMake': timeToMake
+            u'timeToMake': timeToMake,
+            u'avgRating': 0,
+            u'numRatings': 0
         })
         # print(f"Recipe: {title} stored!")
 

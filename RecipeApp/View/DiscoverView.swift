@@ -106,7 +106,9 @@ struct DiscoverView: View {
                     contributor: (document.data()["contributor"] as! String),
                     publisher: (document.data()["publisher"] as! String),
                     timeToMake: (document.data()["timeToMake"] as! String),
-                    yield: (document.data()["yieldText"] as! String)
+                    yield: (document.data()["yieldText"] as! String),
+                    avgRating: ((document.get("avgRating") as! NSNumber).floatValue),
+                    numRatings: ((document.get("numRatings") as! NSNumber).intValue)
                 ))
             }
         }
@@ -139,9 +141,11 @@ struct DiscoverView: View {
                     ingredients: (document.data()["ingredients"] as? [String] ?? []),
                     steps: (document.data()["steps"] as? [String] ?? []),
                     contributor: (document.data()["contributor"] as! String),
-                    publisher: document.data()["publisher"] as! String,
-                    timeToMake: document.data()["timeToMake"] as! String,
-                    yield: document.data()["yieldText"] as! String
+                    publisher: (document.data()["publisher"] as! String),
+                    timeToMake: (document.data()["timeToMake"] as! String),
+                    yield: (document.data()["yieldText"] as! String),
+                    avgRating: ((document.get("avgRating") as! NSNumber).floatValue),
+                    numRatings: ((document.get("numRatings") as! NSNumber).intValue)
                 ))
             }
         }
