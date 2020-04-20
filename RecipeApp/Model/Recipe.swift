@@ -18,6 +18,8 @@ struct Recipe: Identifiable, Codable, Equatable {
     var steps:[String]
     var contributor: String
     var publisher: String
+    var timeToMake: String
+    var yield: String
     
     static func ==(lhs: Recipe, rhs: Recipe) -> Bool {
         return lhs.recipeURLString == rhs.recipeURLString

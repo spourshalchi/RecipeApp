@@ -104,7 +104,9 @@ struct DiscoverView: View {
                     ingredients: (document.data()["ingredients"] as? [String] ?? []),
                     steps: (document.data()["steps"] as? [String] ?? []),
                     contributor: (document.data()["contributor"] as! String),
-                    publisher: (document.data()["publisher"] as! String)
+                    publisher: (document.data()["publisher"] as! String),
+                    timeToMake: (document.data()["timeToMake"] as! String),
+                    yield: (document.data()["yieldText"] as! String)
                 ))
             }
         }
@@ -137,7 +139,9 @@ struct DiscoverView: View {
                     ingredients: (document.data()["ingredients"] as? [String] ?? []),
                     steps: (document.data()["steps"] as? [String] ?? []),
                     contributor: (document.data()["contributor"] as! String),
-                    publisher: (document.data()["publisher"] as! String)
+                    publisher: document.data()["publisher"] as! String,
+                    timeToMake: document.data()["timeToMake"] as! String,
+                    yield: document.data()["yieldText"] as! String
                 ))
             }
         }

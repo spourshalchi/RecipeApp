@@ -72,19 +72,21 @@ struct RecipeView: View {
                     .padding(.bottom, 10)
                 
                 //Yield
-                //NOTE: Not implemented
-                Text("YIELD 4 servings")
-                    .font(.footnote)
-                    .fontWeight(.bold)
-                    .frame(width: textWidth, alignment: .leading)
+                if (self.recipe.yield != "")  {
+                    Text(self.recipe.yield)
+                        .font(.footnote)
+                        .fontWeight(.bold)
+                        .frame(width: textWidth, alignment: .leading)
+                }
                 
                 //Time
-                //NOTE: Not implemented
-                Text("TIME 40 minutes")
-                    .font(.footnote)
-                    .fontWeight(.bold)
-                    .frame(width: textWidth, alignment: .leading)
-                    .padding(.bottom, 12)
+                if (self.recipe.timeToMake != "") {
+                    Text(self.recipe.timeToMake)
+                        .font(.footnote)
+                        .fontWeight(.bold)
+                        .frame(width: textWidth, alignment: .leading)
+                        .padding(.bottom, 12)
+                }
                 
                 //Cooked and review spacer
                 ZStack{
@@ -128,7 +130,7 @@ struct RecipeView: View {
                         Text(ingredient)
                             .font(.footnote)
                             .fontWeight(.bold)
-                            .multilineTextAlignment(.leading)
+                            .fixedSize(horizontal: false, vertical: true)
                             .frame(width: self.textWidth, alignment: .leading)
                     }
                     
@@ -190,7 +192,9 @@ struct RecipeView_Previews: PreviewProvider {
             ingredients:["ingredint"],
             steps:["step"],
             contributor: "Molly Baz",
-            publisher: "Bon Apettit"
+            publisher: "Bon Apettit",
+            timeToMake: "",
+            yield:"1 serving"
         ), onDismiss:{})
     }
 }

@@ -30,7 +30,6 @@
 		66A291BD2430F4E70098B290 /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A291BC2430F4E70098B290 /* SessionStore.swift */; };
 		66D74B0E244A9A7F00E9810C /* ShoppingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D74B0D244A9A7F00E9810C /* ShoppingListViewModel.swift */; };
 		66EEA7632426C21500602889 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EEA7622426C21500602889 /* ProfileView.swift */; };
-		66EEA76A2426E98400602889 /* RecipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EEA7692426E98400602889 /* RecipeViewModel.swift */; };
 		66EEA76C242701CA00602889 /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EEA76B242701CA00602889 /* RecipeView.swift */; };
 		6FA625C56BF60AB4B0D50187 /* Pods_RecipeApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8342521D0821DD70018EBA5 /* Pods_RecipeApp.framework */; };
 /* End PBXBuildFile section */
@@ -61,7 +60,6 @@
 		66A291BC2430F4E70098B290 /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
 		66D74B0D244A9A7F00E9810C /* ShoppingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListViewModel.swift; sourceTree = "<group>"; };
 		66EEA7622426C21500602889 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		66EEA7692426E98400602889 /* RecipeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewModel.swift; sourceTree = "<group>"; };
 		66EEA76B242701CA00602889 /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
 		7883CE20B7333F4BFEE5CA16 /* Pods-RecipeApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecipeApp.debug.xcconfig"; path = "Target Support Files/Pods-RecipeApp/Pods-RecipeApp.debug.xcconfig"; sourceTree = "<group>"; };
 		90D42C1DFA758EFF796AB24D /* Pods-RecipeApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecipeApp.release.xcconfig"; path = "Target Support Files/Pods-RecipeApp/Pods-RecipeApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -174,7 +172,6 @@
 			children = (
 				6676D0572425B7FB00E13D55 /* RecipeBookViewModel.swift */,
 				66D74B0D244A9A7F00E9810C /* ShoppingListViewModel.swift */,
-				66EEA7692426E98400602889 /* RecipeViewModel.swift */,
 				66A291BC2430F4E70098B290 /* SessionStore.swift */,
 				6655E38024423BC000565B3C /* UserSettingsSession.swift */,
 			);
@@ -351,7 +348,6 @@
 				6611F5822439678800807EAC /* WelcomeView.swift in Sources */,
 				66D74B0E244A9A7F00E9810C /* ShoppingListViewModel.swift in Sources */,
 				66405115244931C2000589BA /* ActivityIndicator.swift in Sources */,
-				66EEA76A2426E98400602889 /* RecipeViewModel.swift in Sources */,
 				6640511B24496160000589BA /* ShoppingListView.swift in Sources */,
 				66026FB3243A41F200D53289 /* EmailSignUpView.swift in Sources */,
 				6655E38124423BC000565B3C /* UserSettingsSession.swift in Sources */,
