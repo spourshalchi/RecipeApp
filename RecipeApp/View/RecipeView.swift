@@ -14,6 +14,7 @@ struct RecipeView: View {
     @EnvironmentObject var recipeBook: RecipeBookViewModel
     @EnvironmentObject var shoppingList: ShoppingListViewModel
     let textWidth = UIScreen.main.bounds.size.width * 0.95
+    @State var showRatingModal: Bool = false
     
     let recipe: Recipe
     var onDismiss: () -> ()
@@ -101,7 +102,14 @@ struct RecipeView: View {
                                 .fontWeight(.bold)
                             Image(systemName: "checkmark.circle").foregroundColor(.gray)
                         }.padding()
+                        .onTapGesture {
+                            self.showRatingModal = true
+                        }.sheet(isPresented: self.$showRatingModal) {
+                            RatingView(recipe:self.recipe, onDismiss: {self.showRatingModal = false}).environmentObject(self.recipeBook).environmentObject(self.shoppingList)
+                        }
+
                         Spacer()
+                        
                         if(self.recipe.numRatings != 0) {
                             HStack{
                                 Text("\(self.recipe.numRatings)")
@@ -209,5 +217,84 @@ struct StarRating : View {
 struct StarRating_Previews: PreviewProvider {
     static var previews: some View {
         StarRating(rating: 3.3)
+    }
+}
+
+struct RatingView : View {
+    var recipe : Recipe
+    var onDismiss: () -> ()
+    let textWidth = UIScreen.main.bounds.size.width * 0.95
+    @State var reviewText: String = ""
+    @Environment(\.presentationMode) var presentationMode
+
+    var body : some View {
+        VStack(alignment: .leading){
+            //Title
+            HStack(alignment:.top){
+                Text(self.recipe.title)
+                Spacer()
+                Button(action: {self.presentationMode.wrappedValue.dismiss()}){
+                    Image(systemName: "xmark")
+                }
+            }
+            
+            //Star rating
+            StarRating(rating: 3.3)
+            
+            //Text area
+            TextField("It was SO delicious! Cook for 5 minutes longer to make it extra crispy!", text: $reviewText)
+                .font(.subheadline)
+                .multilineTextAlignment(.leading)
+                .fixedSize(horizontal: false, vertical: true)
+                .lineLimit(nil)
+                
+            Spacer()
+        }
+        .frame(width: self.textWidth, alignment: .leading)
+        .padding()
+    }
+}
+
+struct TextView: UIViewRepresentable {
+    @Binding var text: String
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    func makeUIView(context: Context) -> UITextView {
+
+        let myTextView = UITextView()
+        myTextView.delegate = context.coordinator
+
+        myTextView.font = UIFont(name: "HelveticaNeue", size: 15)
+        myTextView.isScrollEnabled = true
+        myTextView.isEditable = true
+        myTextView.isUserInteractionEnabled = true
+        myTextView.backgroundColor = UIColor(white: 0.0, alpha: 0.05)
+
+        return myTextView
+    }
+
+    func updateUIView(_ uiView: UITextView, context: Context) {
+        uiView.text = text
+    }
+
+    class Coordinator : NSObject, UITextViewDelegate {
+
+        var parent: TextView
+
+        init(_ uiTextView: TextView) {
+            self.parent = uiTextView
+        }
+
+        func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+            return true
+        }
+
+        func textViewDidChange(_ textView: UITextView) {
+            print("text now: \(String(describing: textView.text!))")
+            self.parent.text = textView.text
+        }
     }
 }
