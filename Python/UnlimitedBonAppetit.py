@@ -14,8 +14,6 @@ def getBARecipeLinks():
     browser.get('https://www.bonappetit.com/recipes')
     time.sleep(15)
 
-
-
     #Click get more recipes
     numIterations = 1
     #Note saw this fail at 23 once, not sure if thats a constant or what
@@ -59,7 +57,7 @@ def addBARecipesToDB():
     f.close()
 
     #Firestore database initalization
-    cred = credentials.Certificate("./recipeapp-144f5-firebase-adminsdk-50rmy-a53443deb1.json")
+    cred = credentials.Certificate("./recipeapp-144f5-firebase-adminsdk-50rmy-c7ebd65f01.json")
     firebase_admin.initialize_app(cred)
     db = firestore.client()
 
