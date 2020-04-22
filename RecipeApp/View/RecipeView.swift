@@ -226,6 +226,7 @@ struct RatingView : View {
     let textWidth = UIScreen.main.bounds.size.width * 0.95
     @State var reviewText: String = ""
     @Environment(\.presentationMode) var presentationMode
+    @State var keyboardHeight : CGFloat = 0
 
     var body : some View {
         VStack(alignment: .leading){
@@ -236,65 +237,34 @@ struct RatingView : View {
                 Button(action: {self.presentationMode.wrappedValue.dismiss()}){
                     Image(systemName: "xmark")
                 }
-            }
+            }.padding(.top)
             
             //Star rating
             StarRating(rating: 3.3)
             
             //Text area
-            TextField("It was SO delicious! Cook for 5 minutes longer to make it extra crispy!", text: $reviewText)
-                .font(.subheadline)
-                .multilineTextAlignment(.leading)
-                .fixedSize(horizontal: false, vertical: true)
-                .lineLimit(nil)
+            MultilineTextField("It was SO delicious! Cook for 5 minutes longer to make it extra crispy!", text: $reviewText)
                 
             Spacer()
+            
+            HStack(){
+                Button(action: { }){
+                    Image(systemName: "camera")
+                }
+                Spacer()
+                Button(action: {self.presentationMode.wrappedValue.dismiss()}){
+                    Text("Post review")
+                }.disabled(self.reviewText.isEmpty)
+            }
+            
         }
         .frame(width: self.textWidth, alignment: .leading)
-        .padding()
-    }
-}
-
-struct TextView: UIViewRepresentable {
-    @Binding var text: String
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-
-    func makeUIView(context: Context) -> UITextView {
-
-        let myTextView = UITextView()
-        myTextView.delegate = context.coordinator
-
-        myTextView.font = UIFont(name: "HelveticaNeue", size: 15)
-        myTextView.isScrollEnabled = true
-        myTextView.isEditable = true
-        myTextView.isUserInteractionEnabled = true
-        myTextView.backgroundColor = UIColor(white: 0.0, alpha: 0.05)
-
-        return myTextView
-    }
-
-    func updateUIView(_ uiView: UITextView, context: Context) {
-        uiView.text = text
-    }
-
-    class Coordinator : NSObject, UITextViewDelegate {
-
-        var parent: TextView
-
-        init(_ uiTextView: TextView) {
-            self.parent = uiTextView
-        }
-
-        func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-            return true
-        }
-
-        func textViewDidChange(_ textView: UITextView) {
-            print("text now: \(String(describing: textView.text!))")
-            self.parent.text = textView.text
+        .padding(.bottom, self.keyboardHeight)
+        .onAppear {
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidShowNotification, object: nil, queue: .main) { (data) in
+                let height1 = data.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
+                self.keyboardHeight = height1.cgRectValue.height
+            }
         }
     }
 }
