@@ -17,6 +17,8 @@ struct DiscoverView: View {
     @State var lastSnapshot: QueryDocumentSnapshot?
     @EnvironmentObject var recipeBook: RecipeBookViewModel
     @EnvironmentObject var shoppingList: ShoppingListViewModel
+    @EnvironmentObject var userSession: SessionStore
+
 
     var body: some View {
         VStack{
@@ -58,7 +60,7 @@ struct DiscoverView: View {
                     //Cards
                     if(loadedRecipes.count > 0){
                         ForEach(loadedRecipes) { recipe in
-                            Card(recipe: recipe)
+                            Card(recipe: recipe).environmentObject(self.userSession)
                         }
                     }
                     
@@ -163,6 +165,8 @@ struct Card: View {
     @State var modalDisplayed = false
     @EnvironmentObject var recipeBook: RecipeBookViewModel
     @EnvironmentObject var shoppingList: ShoppingListViewModel
+    @EnvironmentObject var userSession: SessionStore
+
 
 
     var body: some View {
@@ -189,7 +193,7 @@ struct Card: View {
         .onTapGesture {
             self.modalDisplayed = true
         }.sheet(isPresented: self.$modalDisplayed) {
-            RecipeView(recipe:self.recipe, onDismiss: {self.modalDisplayed = false}).environmentObject(self.recipeBook).environmentObject(self.shoppingList)
+            RecipeView(recipe:self.recipe, onDismiss: {self.modalDisplayed = false}).environmentObject(self.recipeBook).environmentObject(self.shoppingList).environmentObject(self.userSession)
         }
         
         //Context menu

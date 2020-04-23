@@ -12,7 +12,7 @@ import struct Kingfisher.KFImage
 struct RecipeBookView: View {
     @EnvironmentObject var recipeBook: RecipeBookViewModel
     @EnvironmentObject var shoppingList: ShoppingListViewModel
-
+    @EnvironmentObject var userSession: SessionStore
     
     init() {
         UITableView.appearance().separatorColor = .clear
@@ -23,7 +23,7 @@ struct RecipeBookView: View {
             NavigationView {
                 VStack {
                     List(recipeBook.recipes) { recipe in
-                        NavigationLink(destination: RecipeView(recipe:recipe, onDismiss:{})) {
+                        NavigationLink(destination: RecipeView(recipe:recipe, onDismiss:{}).environmentObject(self.userSession)) {
                             HStack(){
                                 //Image
                                 KFImage(recipe.imageURL)

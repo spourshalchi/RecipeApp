@@ -8,14 +8,17 @@
 
 import SwiftUI
 import struct Kingfisher.KFImage
+import FirebaseFirestore
 
 struct RecipeView: View {
     //Recipe view model
     @EnvironmentObject var recipeBook: RecipeBookViewModel
     @EnvironmentObject var shoppingList: ShoppingListViewModel
+    @EnvironmentObject var userSession: SessionStore
     let textWidth = UIScreen.main.bounds.size.width * 0.95
     @State var showRatingModal: Bool = false
-    
+    @ObservedObject var cookedObject = CookedObject()
+
     let recipe: Recipe
     var onDismiss: () -> ()
     
@@ -96,16 +99,16 @@ struct RecipeView: View {
                         .frame(width: UIScreen.main.bounds.size.width, height:UIScreen.main.bounds.size.width*0.1)
                     HStack{
                         HStack{
-                            Text("COOKED?")
+                            Text(self.cookedObject.cooked ? "COOKED":"COOKED?")
                                 .foregroundColor(.gray)
                                 .font(.footnote)
                                 .fontWeight(.bold)
-                            Image(systemName: "checkmark.circle").foregroundColor(.gray)
+                            Image(systemName: self.cookedObject.cooked ? "checkmark.circle.fill" :"checkmark.circle").foregroundColor(.gray)
                         }.padding()
                         .onTapGesture {
                             self.showRatingModal = true
                         }.sheet(isPresented: self.$showRatingModal) {
-                            RatingView(recipe:self.recipe, onDismiss: {self.showRatingModal = false}).environmentObject(self.recipeBook).environmentObject(self.shoppingList)
+                            RatingView(recipe:self.recipe, onDismiss: {self.showRatingModal = false}, cookedObject: self.cookedObject).environmentObject(self.recipeBook).environmentObject(self.shoppingList).environmentObject(self.userSession)
                         }
 
                         Spacer()
@@ -190,9 +193,24 @@ struct RecipeView: View {
                     }
                 }
             }
-        }
-    }
-}
+        }.onAppear(){
+            let db = Firestore.firestore()
+            db.collection("recipes").whereField("recipeURLString", isEqualTo: self.recipe.recipeURLString).getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        db.collection("recipes").document(document.documentID).collection("reviews").whereField("userid", isEqualTo: self.userSession.currentUser?.uid as Any).getDocuments()  { (querySnapshot, err) in
+                            if(!(querySnapshot?.isEmpty ?? true)) {
+                                self.cookedObject.cooked = true
+                            }
+                        }
+                    }
+                }
+            }
+        }//On appear
+    }//Body
+}//Struct
 
 struct StarRating : View {
     @State var rating : Float
@@ -227,6 +245,9 @@ struct RatingView : View {
     @State var reviewText: String = ""
     @Environment(\.presentationMode) var presentationMode
     @State var keyboardHeight : CGFloat = 0
+    @State var inputRating : Int = 0
+    @EnvironmentObject var userSession: SessionStore
+    @ObservedObject var cookedObject: CookedObject
 
     var body : some View {
         VStack(alignment: .leading){
@@ -240,7 +261,14 @@ struct RatingView : View {
             }.padding(.top)
             
             //Star rating
-            StarRating(rating: 3.3)
+            HStack{
+                ForEach(1 ... 5, id: \.self) { number in
+                    Image(systemName: "star.fill").foregroundColor((number > self.inputRating) ? .gray :Color("Gold"))
+                    .onTapGesture {
+                        self.inputRating = number
+                    }
+                }
+            }
             
             //Text area
             MultilineTextField("It was SO delicious! Cook for 5 minutes longer to make it extra crispy!", text: $reviewText)
@@ -248,11 +276,34 @@ struct RatingView : View {
             Spacer()
             
             HStack(){
-                Button(action: { }){
+                Button(action: {
+                    //Take picture of food!
+                }){
                     Image(systemName: "camera")
                 }
                 Spacer()
-                Button(action: {self.presentationMode.wrappedValue.dismiss()}){
+                Button(action: {
+                    let db = Firestore.firestore()
+                    db.collection("recipes").whereField("recipeURLString", isEqualTo: self.recipe.recipeURLString).getDocuments() { (querySnapshot, err) in
+                        if let err = err {
+                            print("Error getting documents: \(err)")
+                        } else {
+                            for document in querySnapshot!.documents {
+                                db.collection("recipes").document(document.documentID).collection("reviews").addDocument(data: [
+                                    "rating": self.inputRating,
+                                    "reviewText" : self.reviewText,
+                                    "userid" : self.userSession.currentUser?.uid as Any
+                                ]) { error in
+                                    if let err = err {
+                                        print("Error adding subcollection: \(err)")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    self.cookedObject.cooked = true
+                    self.presentationMode.wrappedValue.dismiss()
+                }){
                     Text("Post review")
                 }.disabled(self.reviewText.isEmpty)
             }
@@ -267,4 +318,8 @@ struct RatingView : View {
             }
         }
     }
+}
+
+class CookedObject: ObservableObject {
+    @Published var cooked: Bool = false
 }
